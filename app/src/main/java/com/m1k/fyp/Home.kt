@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.widget.Button
 import android.widget.ImageView
 
 import kotlinx.android.synthetic.main.activity_home.*
@@ -24,10 +25,10 @@ class Home : AppCompatActivity() {
         }*/
 
 
-        val s = findViewById<ImageView>(R.id.imageView)
+        val s = findViewById<Button>(R.id.loginButton)
 
-        s.x = 100f
-        s.y = 300f
+        s.x = 50f
+        s.y = 1550f
 
         s.setOnClickListener{ view ->
             Snackbar.make(view, "Opening Activity...", Snackbar.LENGTH_LONG)

@@ -3,4 +3,5 @@
     <string name="dummy_button">Me Me Big Boy</string>
     <string name="dummy_content">Was ist\ndas?</string>
     <string name="title_activity_home">Home</string>
+    <string name="login">Login</string>
 </resources>
