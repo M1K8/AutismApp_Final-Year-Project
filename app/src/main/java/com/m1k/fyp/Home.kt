@@ -5,16 +5,22 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
-import android.widget.ImageView
-
 import kotlinx.android.synthetic.main.activity_home.*
 
 class Home : AppCompatActivity() {
+
+    private var db: UserDataBase? = null
+    private lateinit var dbH : DbWorkerThread
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
+
+        dbH = DbWorkerThread("DBWorker")
+        dbH.start()
+
+        db = UserDataBase.getInstance(this)
 
 /*        fab.setOnClickListener { view ->
             Snackbar.make(view, "Opening Activity...", Snackbar.LENGTH_LONG)
@@ -38,6 +44,11 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun addDataToDB(userTable: UserTable) {
+        val task = Runnable { db?.userDataDao()?.insert(userTable) }
+        dbH.postTask(task)
     }
 
 }

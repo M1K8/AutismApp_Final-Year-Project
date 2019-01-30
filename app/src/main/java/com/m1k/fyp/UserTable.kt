@@ -3,6 +3,8 @@ package com.m1k.fyp
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.content.Context
+import android.os.Handler
+import android.os.HandlerThread
 
 @Entity data class UserTable(@PrimaryKey(autoGenerate = true) var id: Long?,
                        @ColumnInfo(name = "uName") var uname: String,
@@ -27,7 +29,7 @@ import android.content.Context
     fun deleteAll()
 }
 
-@Database(entities = arrayOf(UserTable::class), version = 1)
+@Database(entities = [UserTable::class], version = 1)
 abstract class UserDataBase : RoomDatabase() {
 
     abstract fun userDataDao(): UserDBDao
@@ -48,4 +50,20 @@ abstract class UserDataBase : RoomDatabase() {
             INSTANCE = null
         }
     }
+}
+
+
+class DbWorkerThread(threadName: String) : HandlerThread(threadName) {
+
+    private lateinit var mWorkerHandler: Handler
+
+    override fun onLooperPrepared() {
+        super.onLooperPrepared()
+        mWorkerHandler = Handler(looper)
+    }
+
+    fun postTask(task: Runnable) {
+        mWorkerHandler.post(task)
+    }
+
 }
