@@ -1,26 +1,19 @@
 package com.m1k.fyp
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.content.Context
-import android.os.Handler
-import android.os.HandlerThread
 
 @Entity data class UserTable(@PrimaryKey(autoGenerate = true) var id: Long?,
                        @ColumnInfo(name = "uName") var uname: String,
-                       @ColumnInfo(name = "uName") var pwd: String
-
-
-
-){
-    constructor():this(null,"","")
-}
-
+                       @ColumnInfo(name = "pwd") var pwd: String
+)
 
 @Dao interface UserDBDao {
 
     @Query("SELECT * from UserTable")
-    fun getAll(): List<UserTable>
+    fun getAll(): LiveData<List<UserTable>>
 
     @Insert(onConflict = REPLACE)
     fun insert(weatherData: UserTable)
@@ -29,41 +22,30 @@ import android.os.HandlerThread
     fun deleteAll()
 }
 
-@Database(entities = [UserTable::class], version = 1)
+@Database(entities = [UserTable::class], version = 1, exportSchema = false)
 abstract class UserDataBase : RoomDatabase() {
 
     abstract fun userDataDao(): UserDBDao
 
     companion object {
+        @Volatile
         private var INSTANCE: UserDataBase? = null
 
-        fun getInstance(context: Context): UserDataBase? {
-            if (INSTANCE == null) {
-                synchronized(UserDataBase::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,  UserDataBase::class.java, "user.db").build()
-                }
+        fun getDatabase(context: Context): UserDataBase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
             }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    UserDataBase::class.java,
+                    "user.db"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
         }
     }
 }
 
-
-class DbWorkerThread(threadName: String) : HandlerThread(threadName) {
-
-    private lateinit var mWorkerHandler: Handler
-
-    override fun onLooperPrepared() {
-        super.onLooperPrepared()
-        mWorkerHandler = Handler(looper)
-    }
-
-    fun postTask(task: Runnable) {
-        mWorkerHandler.post(task)
-    }
-
-}
