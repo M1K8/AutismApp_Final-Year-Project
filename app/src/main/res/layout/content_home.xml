@@ -9,4 +9,75 @@
         tools:showIn="@layout/activity_home"
         tools:context=".Home">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <!--android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" /!-->
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="106dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top|left"
+                android:text="@string/login" />
+
+        </android.support.design.widget.AppBarLayout>
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="397dp"
+        android:layout_height="598dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout">
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/drawButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="165dp"
+                app:srcCompat="@drawable/draw_icon" />
+
+
+            <ImageButton
+                android:id="@+id/camButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:srcCompat="@drawable/cam_icon" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+
 </android.support.constraint.ConstraintLayout>
