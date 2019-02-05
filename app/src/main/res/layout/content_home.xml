@@ -13,7 +13,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
         <android.support.design.widget.AppBarLayout
@@ -39,10 +39,10 @@
     </RelativeLayout>
 
     <TableLayout
-        android:layout_width="397dp"
-        android:layout_height="598dp"
+        android:layout_width="393dp"
+        android:layout_height="604dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="108dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +56,8 @@
                 android:layout_height="64dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginEnd="165dp"
+                android:layout_marginBottom="165dp"
                 app:srcCompat="@drawable/draw_icon" />
-
 
             <ImageButton
                 android:id="@+id/camButton"
@@ -66,17 +66,42 @@
                 app:srcCompat="@drawable/cam_icon" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <ImageButton
+                android:id="@+id/pecsButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="165dp"
+                android:layout_marginBottom="165dp"
+                app:srcCompat="@drawable/pecs_icon" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <ImageButton
+                android:id="@+id/calButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:srcCompat="@drawable/cal_icon" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/txtButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="165dp"
+                app:srcCompat="@drawable/txt_icon" />
+
+            <ImageButton
+                android:id="@+id/strgButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:srcCompat="@drawable/strg_icon" />
+        </TableRow>
+
+
     </TableLayout>
 
 
