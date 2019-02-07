@@ -1,8 +1,10 @@
 package com.m1k.fyp
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import kotlinx.android.synthetic.main.content_home.*
 
 class Home : AppCompatActivity() {
@@ -21,5 +23,23 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        camButton.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+
+        if (newConfig?.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show()
+        } else if (newConfig?.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
