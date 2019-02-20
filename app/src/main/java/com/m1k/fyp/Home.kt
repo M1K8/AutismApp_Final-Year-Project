@@ -30,6 +30,12 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
+        drawButton.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(this, DrawingActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
