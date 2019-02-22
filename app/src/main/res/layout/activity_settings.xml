@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="594dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/settingsTable">
+
+            <TableRow>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                android:id="@+id/settingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="Settings"
+                android:textStyle="bold"
+                android:textSize="60sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+
+            </TableRow>
+
+            <TableRow>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_height="10dp"
+                    />
+            </TableRow>
+
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Vibrate"
+                    android:textSize="40sp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <Switch
+                    android:id="@+id/vibDrawSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="Drawing App Only"
+                    android:switchPadding="20dp"
+                    android:textSize="25sp"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="20dp"
+                    />
+            </TableRow>
+
+
+            <TableRow>
+                <Switch
+                    android:id="@+id/vibGenSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textSize="25sp"
+                    android:text="Every Tap" />
+            </TableRow>
+
+            <TableRow>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_weight="1"
+                    android:layout_height="35dp"
+                    />
+            </TableRow>
+
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text=" Text To Speech"
+                    android:textSize="40sp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <Switch
+                    android:id="@+id/enableTxt2SpeechSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="Enable"
+                    android:switchPadding="20dp"
+                    android:textSize="25sp"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_gravity="bottom|center"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="20dp"
+                    />
+            </TableRow>
+
+
+            <TableRow>
+                <Switch
+                    android:id="@+id/txt2SpeechVoiceSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textSize="25sp"
+                    android:text="Alternative Voice" />
+            </TableRow>
+
+        </TableLayout>
+
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

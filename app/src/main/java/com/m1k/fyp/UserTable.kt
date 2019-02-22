@@ -6,9 +6,10 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.content.Context
 
 @Entity data class UserTable(@PrimaryKey(autoGenerate = true) var id: Long?,
-                       @ColumnInfo(name = "uName") var uname: String,
-                       @ColumnInfo(name = "pwd") var pwd: String
-)
+                       @ColumnInfo(name = "uName") var uName: String,
+                       @ColumnInfo(name = "draw_vibrate") var draw_vibrate: Boolean,
+                       @ColumnInfo(name = "general_haptic") var general_vibrate: Boolean,
+                       @ColumnInfo(name = "txt_speech") var txt2Speech: Boolean)
 
 @Dao interface UserDBDao {
 
@@ -16,7 +17,7 @@ import android.content.Context
     fun getAll(): LiveData<List<UserTable>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(weatherData: UserTable)
+    fun insert(userData: UserTable)
 
     @Query("DELETE from UserTable")
     fun deleteAll()

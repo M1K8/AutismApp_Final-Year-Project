@@ -36,6 +36,13 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        settingsButton.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
