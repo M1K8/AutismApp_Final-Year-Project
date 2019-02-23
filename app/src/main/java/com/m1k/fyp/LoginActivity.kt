@@ -18,9 +18,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -38,15 +36,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         setContentView(R.layout.activity_login)
         // Set up the login form.
         populateAutoComplete()
-        password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                attemptLogin()
-                return@OnEditorActionListener true
-            }
-            false
-        })
-
         email_sign_in_button.setOnClickListener { attemptLogin() }
+
+        var db: UserDataBase? = UserDataBase.getDatabase(this@LoginActivity)
+
+        var users = db?.userDataDao()?.getAll()
     }
 
     private fun populateAutoComplete() {
@@ -101,21 +95,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
         // Reset errors.
         email.error = null
-        password.error = null
 
         // Store values at the time of the login attempt.
         val emailStr = email.text.toString()
-        val passwordStr = password.text.toString()
 
         var cancel = false
         var focusView: View? = null
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
-            password.error = getString(R.string.error_invalid_password)
-            focusView = password
-            cancel = true
-        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(emailStr)) {
@@ -136,7 +122,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
+            mAuthTask = UserLoginTask(emailStr)
             mAuthTask!!.execute(null as Void?)
         }
     }
@@ -248,27 +234,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) :
+    inner class UserLoginTask internal constructor(private val mEmail: String) :
         AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
-            // TODO: attempt authentication against a network service.
+            //TODO ADD LIST OF USERS TO GUI / REPOSITION THIS TO OCCUR ON SETTINGS PAGE OPENING
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000)
-            } catch (e: InterruptedException) {
-                return false
-            }
-
-            return DUMMY_CREDENTIALS
-                .map { it.split(":") }
-                .firstOrNull { it[0] == mEmail }
-                ?.let {
-                    // Account exists, return true if the password matches.
-                    it[1] == mPassword
-                }
-                ?: true
+            return true
         }
 
         override fun onPostExecute(success: Boolean?) {
@@ -277,9 +249,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
             if (success!!) {
                 finish()
-            } else {
-                password.error = getString(R.string.error_incorrect_password)
-                password.requestFocus()
             }
         }
 

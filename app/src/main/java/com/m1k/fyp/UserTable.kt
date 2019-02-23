@@ -9,18 +9,25 @@ import android.content.Context
                        @ColumnInfo(name = "uName") var uName: String,
                        @ColumnInfo(name = "draw_vibrate") var draw_vibrate: Boolean,
                        @ColumnInfo(name = "general_haptic") var general_vibrate: Boolean,
-                       @ColumnInfo(name = "txt_speech") var txt2Speech: Boolean)
+                       @ColumnInfo(name = "txt_speech") var txt2Speech: Boolean,
+                       @ColumnInfo (name = "pic_path") var picPath : String?)
 
 @Dao interface UserDBDao {
 
     @Query("SELECT * from UserTable")
     fun getAll(): LiveData<List<UserTable>>
 
+    @Query("SELECT * from UserTable where uName =  :name ")
+    fun getByUserName(name : String) : UserTable
+
     @Insert(onConflict = REPLACE)
     fun insert(userData: UserTable)
 
     @Query("DELETE from UserTable")
     fun deleteAll()
+
+    @Update
+    fun updateUser(userData : UserTable)
 }
 
 @Database(entities = [UserTable::class], version = 1, exportSchema = false)
