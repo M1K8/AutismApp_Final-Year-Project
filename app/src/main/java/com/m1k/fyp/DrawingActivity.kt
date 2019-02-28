@@ -1,23 +1,26 @@
 package com.m1k.fyp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.activity_drawing.*
 import kotlinx.android.synthetic.main.draw_swipe_menu.*
 
 
 //from https://android.jlelse.eu/a-guide-to-drawing-in-android-631237ab6e28
 class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
-
     private var mPaint = Paint()
     private var mPath = Path()
     private var colour = Color.BLACK
@@ -96,5 +99,27 @@ class DrawingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_drawing)
 
         sheetBehavior = BottomSheetBehavior.from<LinearLayout>(draw_swipe_menu)
+
+
+        drawing_view.setOnClickListener{
+            vibrate()
+        }
      }
+
+    @SuppressLint("NewApi")
+    //change intensity based on speed
+    private fun vibrate(){
+        var v = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        v.vibrate(
+            VibrationEffect.createOneShot(
+                50,
+                // The default vibration strength of the device.
+                VibrationEffect.DEFAULT_AMPLITUDE
+            )
+        )
+    }
+
+
 }
+
+/* */

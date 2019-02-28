@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private var mAuthTask: UserLoginTask? = null
+    private var dbDao: UserDBDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +39,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         populateAutoComplete()
         email_sign_in_button.setOnClickListener { attemptLogin() }
 
-        var db: UserDataBase? = UserDataBase.getDatabase(this@LoginActivity)
+        dbDao =  UserDataBase.getDatabase(this, null).userDataDao()
 
-        var users = db?.userDataDao()?.getAll()
     }
 
     private fun populateAutoComplete() {
@@ -52,9 +52,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun mayRequestContacts(): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true
-        }
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true
         }
@@ -128,13 +125,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 4
+        return true
     }
 
     /**
@@ -227,7 +218,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             ContactsContract.CommonDataKinds.Email.IS_PRIMARY
         )
         val ADDRESS = 0
-        val IS_PRIMARY = 1
     }
 
     /**
@@ -259,16 +249,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     companion object {
-
-        /**
-         * Id to identity READ_CONTACTS permission request.
-         */
         private val REQUEST_READ_CONTACTS = 0
-
-        /**
-         * A dummy authentication store containing known user names and passwords.
-         * TODO: remove after connecting to a real authentication system.
-         */
-        private val DUMMY_CREDENTIALS = arrayOf("foo@example.com:hello", "bar@example.com:world")
     }
 }
