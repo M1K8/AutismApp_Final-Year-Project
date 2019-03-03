@@ -55,15 +55,64 @@ class Calender()
     }
 }
 
+class Week() {
+    var monday: String = ""
+    var monday_pic_path: String? = null
+
+    var tuesday: String = ""
+    var tuesday_pic_path: String? = null
+
+    var wednesday: String = ""
+    var wednesday_pic_path: String? = null
+
+    var thursday: String = ""
+    var thursday_pic_path: String? = null
+
+    var friday: String = ""
+    var friday_pic_path: String? = null
+
+    var saturday: String = ""
+    var saturday_pic_path: String? = null
+
+    var sunday: String = ""
+    var sunday_pic_path: String? = null
+
+    constructor(w : String, m : String, l : String, a : String, e : String, d : String, b : String) : this() {
+        monday = w
+        monday_pic_path = null
+
+        tuesday = m
+        tuesday_pic_path = null
+
+        wednesday = l
+        wednesday_pic_path = null
+
+        thursday = a
+        thursday_pic_path = null
+
+        friday= e
+        friday_pic_path = null
+
+        saturday = d
+        saturday_pic_path = null
+
+        sunday = b
+        sunday_pic_path = null
+    }
+}
+
 @Entity(tableName = "Users")
 data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
-                        var uName: String,
-                        var draw_vibrate: Boolean,
-                        var general_vibrate: Boolean,
-                        var txt2Speech: Boolean,
-                        var picPath : String?,
-                        @Embedded
-                        var calender: Calender?)
+                @ColumnInfo(name="uName")var uName: String,
+                @ColumnInfo(name="draw_vibrate")var draw_vibrate: Boolean,
+                @ColumnInfo(name="general_vibrate")var general_vibrate: Boolean,
+                @ColumnInfo(name="txt2Speech")var txt2Speech: Boolean,
+                @ColumnInfo(name="calWeekly")var calWeekly: Boolean,
+                @ColumnInfo(name="picPath")var picPath : String?,
+                @Embedded
+                        var calender: Calender?,
+                @Embedded
+                        var week: Week?)
 
 @Dao interface UserDBDao {
 
@@ -76,11 +125,35 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     @Query("SELECT wakeUp,wakeUp_pic_path,morning, morning_pic_path, lunchTime, lunchTime_pic_path, afternoon, afternoon_pic_path, evening, evening_pic_path, dinnerTime, dinnerTime_pic_path, bedTime, bedTime_pic_path from Users where uName = :name")
     fun getCalenderByName(name : String) : Calender?
 
+    @Query("SELECT monday,monday_pic_path,tuesday, tuesday_pic_path, wednesday, wednesday_pic_path, thursday, thursday_pic_path, friday, friday_pic_path, saturday, saturday_pic_path, sunday, sunday_pic_path from Users where uName = :name")
+    fun getWeekByName(name : String) : Week?
+
+    @Query("SELECT draw_vibrate,general_vibrate, txt2Speech, calWeekly from Users where uName = :name")
+    fun getSettingsByName(name : String) : Settings?
+
     @Insert(onConflict = REPLACE)
     fun insert(userData: User)
 
     @Query("DELETE from Users")
     fun deleteAll()
+
+    @Query("UPDATE Users SET draw_vibrate = :d, general_vibrate = :g, txt2Speech = :t, calWeekly = :c, picPath = :p where uName = :name")
+    fun updateSettingsByUser(name : String, d : Boolean, g : Boolean, t : Boolean, c : Boolean, p : Boolean)
+
+    @Query("UPDATE Users SET draw_vibrate = :d where uName = :name")
+    fun updateDrawVibByUser(name : String, d : Boolean)
+
+    @Query("UPDATE Users SET general_vibrate = :d where uName = :name")
+    fun updateGenVibByUser(name : String, d : Boolean)
+
+    @Query("UPDATE Users SET txt2Speech = :d where uName = :name")
+    fun updateT2sByUser(name : String, d : Boolean)
+
+    @Query("UPDATE Users SET calWeekly = :d where uName = :name")
+    fun updateCalWeeklyByUser(name : String, d : Boolean)
+
+    @Query("UPDATE Users SET picPath = :d where uName = :name")
+    fun updatePicByUser(name : String, d : Boolean)
 
     @Update
     fun updateUser(userData : User)

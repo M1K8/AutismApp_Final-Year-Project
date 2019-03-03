@@ -3,6 +3,7 @@ package com.m1k.fyp
 import android.app.Application
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -13,37 +14,67 @@ import kotlinx.coroutines.runBlocking
 
 
 class GlobalApp : Application() {
-    private var loggedIn : String? = null
 
-    fun getLogged() : String? {
-        return loggedIn
-    }
 
-    fun setLogged(s : String) {
-        loggedIn = s
+    companion object {
+        private var loggedIn : String? = null
+        fun getLogged(): String? {
+            return loggedIn
+        }
+
+        fun setLogged(s: String) {
+            loggedIn = s
+        }
+
+        var draw_vib  = false
+        var vib = false
+
+        var t2s = false
+        var c2 = false
     }
 }
 
 class Home : AppCompatActivity() {
 
+    val db = UserDataBase.getDatabase(this, null).userDataDao()
+
+    inner class GetSettingsFromDB(s : String) : AsyncTask<String, Int, Settings?>() {
+        val name = s
+
+        override fun doInBackground(vararg params: String?): Settings? {
+            return db.getSettingsByName(name)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        try {
-            val db = UserDataBase.getDatabase(this, null).userDataDao()
-            val y = GlobalScope.async {
-                val c = Calender("w","m","l","a","e","d","b")
-                var e = User(0,"Yeetus",true,true,true,null, c)
-                db.insert(e)
-                GlobalApp().setLogged("Yeetus")
-            }
-            runBlocking {
-                y.await()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this,e.message,Toast.LENGTH_LONG).show()
+        val y = GlobalScope.async {
+            val c = Calender("w","m","l","a","e","d","b")
+            val w = Week("w","m","l","a","e","d","b")
+            var e = User(0,"Yeetus",true,true,true,false, null,c,w)
+            db.insert(e)
+            GlobalApp.setLogged("Yeetus")
+        }
+        runBlocking {
+            y.await()
         }
 
+
+        val loggedIn = GlobalApp.getLogged()
+
+        if (loggedIn != null) {
+            val settProm = GetSettingsFromDB(loggedIn).execute()
+            val s = settProm.get()
+
+            if (s != null) {
+                GlobalApp.draw_vib = s.draw_vibrate
+                GlobalApp.vib = s.general_vibrate
+                GlobalApp.t2s = s.txt2Speech
+                GlobalApp.c2 = s.calWeekly
+            }
+
+        }
 
         loginButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

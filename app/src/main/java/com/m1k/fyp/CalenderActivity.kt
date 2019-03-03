@@ -9,7 +9,6 @@ class CalenderActivity : AppCompatActivity() {
 
     var calSession : Calender? = null
     val db = UserDataBase.getDatabase(this, null).userDataDao()
-    private val global = GlobalApp()
 
     inner class GetCalenderFromDB(s : String) : AsyncTask<String, Int, Calender?>() {
         val name = s
@@ -26,13 +25,14 @@ class CalenderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calender)
 
-        val loggedIn = global.getLogged()
+        var loggedIn = GlobalApp.getLogged()
 
         if (loggedIn != null) {
             val calProm = GetCalenderFromDB(loggedIn).execute()
             val c = calProm.get()
             Toast.makeText(this, c?.bedTime, Toast.LENGTH_LONG).show()
         }
+        // read from db, if !null then populate
 
     }
 }

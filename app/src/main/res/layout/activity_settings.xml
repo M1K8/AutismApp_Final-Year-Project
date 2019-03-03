@@ -136,19 +136,29 @@
                     android:layout_gravity="bottom|center"
                     android:layout_weight="1"
                     android:layout_height="25dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="35dp"
                     />
             </TableRow>
 
-
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Calender"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="#000"
+                    android:textSize="40sp"/>
+            </TableRow>
             <TableRow>
                 <Switch
-                    android:id="@+id/txt2SpeechVoiceSwitch"
+                    android:id="@+id/calWeeklySwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:textSize="25sp"
-                    android:text="Alternative Voice" />
+                    android:text="Week Long View" />
             </TableRow>
 
         </TableLayout>

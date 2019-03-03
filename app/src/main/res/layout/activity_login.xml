@@ -57,6 +57,13 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
+            <TableLayout
+                android:id="@+id/users_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TableLayout>
+
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>

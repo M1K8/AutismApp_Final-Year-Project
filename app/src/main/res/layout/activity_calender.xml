@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".CalenderActivity">
+    tools:context=".CalenderActivity"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,6 +18,178 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TableLayout
+                android:id="@+id/calTable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/title1"
+                        android:layout_marginStart="20dp"
+                        android:text="Mon."/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                         <TextView
+                             android:id="@+id/title2"
+                             android:text="Tue." />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                        <TextView android:id="@+id/title3"
+                            android:text="Wed."/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                    <TextView android:id="@+id/title4"
+                        android:text="Thu."/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                        <TextView android:id="@+id/title5"
+                            android:text="Fri."/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                    <TextView android:id="@+id/title6"
+                        android:text="Sat."/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView android:id="@+id/title7"
+                        android:layout_marginEnd="20dp"
+                        android:text="Sun."/>
+
+                </TableRow>
+
+                <TableRow android:layout_height="match_parent">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card1"
+                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:id="@+id/card2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:id="@+id/card3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:id="@+id/card4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:id="@+id/card5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:id="@+id/card6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:id="@+id/card7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
+
+                </TableRow>
+
+
+            </TableLayout>
 
 
 
