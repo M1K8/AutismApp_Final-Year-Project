@@ -1,6 +1,5 @@
 package com.m1k.fyp
 
-import android.app.Application
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.AsyncTask
@@ -8,58 +7,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
-
-
-class GlobalApp : Application() {
-
-
-    companion object {
-        private var loggedIn : String? = null
-        fun getLogged(): String? {
-            return loggedIn
-        }
-
-        fun setLogged(s: String) {
-            loggedIn = s
-        }
-
-        var draw_vib  = false
-        var vib = false
-
-        var t2s = false
-        var c2 = false
-    }
-}
 
 class Home : AppCompatActivity() {
-
-    val db = UserDataBase.getDatabase(this, null).userDataDao()
-
-    inner class GetSettingsFromDB(s : String) : AsyncTask<String, Int, Settings?>() {
-        val name = s
-
-        override fun doInBackground(vararg params: String?): Settings? {
-            return db.getSettingsByName(name)
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val y = GlobalScope.async {
-            val c = Calender("w","m","l","a","e","d","b")
-            val w = Week("w","m","l","a","e","d","b")
-            var e = User(0,"Yeetus",true,true,true,false, null,c,w)
-            db.insert(e)
-            GlobalApp.setLogged("Yeetus")
-        }
-        runBlocking {
-            y.await()
-        }
-
 
         val loggedIn = GlobalApp.getLogged()
 
@@ -114,5 +66,13 @@ class Home : AppCompatActivity() {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    inner class GetSettingsFromDB(s : String) : AsyncTask<String, Int, Settings?>() {
+        val name = s
+        val db = UserDataBase.getDatabase(this@Home, null).userDataDao()
+        override fun doInBackground(vararg params: String?): Settings? {
+            return db.getSettingsByName(name)
+        }
     }
 }

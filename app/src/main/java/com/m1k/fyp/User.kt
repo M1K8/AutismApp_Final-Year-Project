@@ -159,7 +159,7 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     fun updateUser(userData : User)
 }
 
-@Database(entities = [User::class], version = 2, exportSchema = false)
+@Database(entities = [User::class], version = 3, exportSchema = false)
 abstract class UserDataBase : RoomDatabase() {
 
     abstract fun userDataDao(): UserDBDao
