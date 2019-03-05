@@ -7,6 +7,7 @@ class GlobalApp : Application() {
 
     companion object {
         private var loggedIn : String? = null
+        val CAM_REQ = 0
         fun getLogged(): String? {
             return loggedIn
         }

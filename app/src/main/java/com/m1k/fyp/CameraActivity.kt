@@ -1,7 +1,11 @@
 package com.m1k.fyp
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -19,16 +23,39 @@ class CameraActivity : AppCompatActivity() {
             null
         }
     }
-
-    private var noOfCams = Camera.getNumberOfCameras()
-
     private var mCamera: Camera? = null
     private var mPreview: CameraPreview? = null
 
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            GlobalApp.CAM_REQ -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED)) {
+                    finish()
+                } else init()
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), GlobalApp.CAM_REQ)
+        }
+        setContentView(R.layout.activity_camera)
+        init()
+
+    }
+    private fun init() {
         // Create an instance of Camera
         mCamera = getCameraInstance()
 

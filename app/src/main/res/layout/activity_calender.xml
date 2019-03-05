@@ -14,27 +14,22 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
             <TableLayout
                 android:id="@+id/calTable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TableRow android:layout_height="match_parent">
                         <TextView
                         android:id="@+id/title1"
                         android:background="#000000"
                         android:textColor="#ffffff"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="10dp"
                         android:text="Mon."/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.9"
                         />
                          <TextView
                              android:background="#222222"
@@ -44,40 +39,50 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.9"
                         />
                         <TextView android:id="@+id/title3"
-                            android:text="Wed."/>
+                            android:background="#a41671"
+                            android:text="Wed."
+                            android:textColor="#ffffff"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.9"
                         />
                     <TextView android:id="@+id/title4"
-                        android:text="Thu."/>
+                        android:background="#2049da"
+                        android:text="Thu."
+                        android:textColor="#ffffff"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         />
                         <TextView android:id="@+id/title5"
-                            android:text="Fri."/>
+                            android:background="#38362d"
+                            android:text="Fri."
+                            android:textColor="#ffffff"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="1.2"
                         />
                     <TextView android:id="@+id/title6"
-                        android:text="Sat."/>
+                        android:background="#59a7d7"
+                        android:text="Sat."
+                        android:textColor="#000000"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.9"
                         />
 
                     <TextView android:id="@+id/title7"
-                        android:layout_marginEnd="20dp"
-                        android:text="Sun."/>
+                        android:layout_marginEnd="50dp"
+                        android:background="#c35210"
+                        android:text="Sun."
+                        android:textColor="#000000"/>
 
                 </TableRow>
 
@@ -85,20 +90,27 @@
                 android:layout_height="match_parent">
 
                     <android.support.v7.widget.CardView
-                        android:layout_weight="1.2"
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:background="#000000"
-                        android:textColor="#ffffff">
+                        android:layout_width="0dp"
+                        android:layout_weight="1.55"
+                        android:textColor="#ffffff"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true">
                         <EditText
+                            android:imeOptions="actionDone"
                             android:id="@+id/edit1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#000000"
-                            android:textColor="#ffffff"/>
+                            android:textColor="#ffffff"
+                            android:textSize="12sp"/>
                     </android.support.v7.widget.CardView>
                     <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="15"
+                    android:layout_weight="10"
                     />
 
 
@@ -109,18 +121,25 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.2"
+                        android:layout_weight="1.1"
                         />
                     <android.support.v7.widget.CardView
-                        android:layout_weight="1.2"
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.15"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true"
                         android:background="#222222"
                         android:textColor="#dddddd">
                         <EditText
+                            android:imeOptions="actionDone"
                             android:id="@+id/edit2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#222222"
-                            android:textColor="#dddddd"/>
+                            android:textColor="#dddddd"
+                            android:textSize="12sp"/>
                     </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="0dp"
@@ -134,7 +153,68 @@
 
                 <TableRow android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.05"
+                        />
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.15"
+                        android:background="#222222"
+                        android:textColor="#dddddd"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true">
+                        <EditText
+                            android:id="@+id/edit3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#a41671"
+                            android:imeOptions="actionDone"
+                            android:textColor="#000000"
+                            android:textSize="12sp"/>
+                    </android.support.v7.widget.CardView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4.5"
+                        />
 
+
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.9"
+                        />
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.05"
+                        android:background="#222222"
+                        android:textColor="#dddddd"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true">
+                        <EditText
+                            android:id="@+id/edit4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#2049da"
+                            android:imeOptions="actionDone"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp"/>
+                    </android.support.v7.widget.CardView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.1"
+                        />
 
 
                 </TableRow>
@@ -142,26 +222,97 @@
                 <TableRow android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.8"
+                        />
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="#222222"
+                        android:textColor="#dddddd"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true">
+                        <EditText
+                            android:id="@+id/edit5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#38362d"
+                            android:imeOptions="actionDone"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp"/>
+                    </android.support.v7.widget.CardView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        />
+
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4.7"
+                        />
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="#222222"
+                        android:textColor="#dddddd"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true">
+                        <EditText
+                            android:id="@+id/edit6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#59a7d7"
+                            android:imeOptions="actionDone"
+                            android:textColor="#000000"
+                            android:textSize="12sp"/>
+                    </android.support.v7.widget.CardView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
 
 
                 </TableRow>
 
                 <TableRow android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
-
-
-                </TableRow>
-
-                <TableRow android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-                </TableRow>
-
-                <TableRow android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6.2"
+                        />
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.1"
+                        android:background="#222222"
+                        android:textColor="#dddddd"
+                        card_view:cardBackgroundColor="#000000"
+                        card_view:cardCornerRadius="3dp"
+                        card_view:cardUseCompatPadding="true">
+                        <EditText
+                            android:id="@+id/edit7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#c35210"
+                            android:imeOptions="actionDone"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            />
+                    </android.support.v7.widget.CardView>
 
 
 
@@ -170,8 +321,5 @@
 
             </TableLayout>
 
-
-
-        </RelativeLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

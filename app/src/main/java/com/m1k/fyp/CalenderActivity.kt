@@ -1,5 +1,6 @@
 package com.m1k.fyp
 
+import android.content.res.Resources
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -71,50 +72,63 @@ class CalenderActivity : AppCompatActivity() {
             if (GlobalApp.c2) {
                 var txt = findViewById<EditText>(R.id.edit1)
                 txt.text = Editable.Factory.getInstance().newEditable(w?.monday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
                 txt = findViewById(R.id.edit2)
                 txt.text = Editable.Factory.getInstance().newEditable(w?.tuesday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit3)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.wednesday)
+                txt = findViewById(R.id.edit3)
+                txt.text = Editable.Factory.getInstance().newEditable(w?.wednesday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit4)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.thursday)
+                txt = findViewById(R.id.edit4)
+                txt.text = Editable.Factory.getInstance().newEditable(w?.thursday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit5)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.friday)
+                txt = findViewById(R.id.edit5)
+                txt.text = Editable.Factory.getInstance().newEditable(w?.friday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit6)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.saturday)
+                txt = findViewById(R.id.edit6)
+                txt.text = Editable.Factory.getInstance().newEditable(w?.saturday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit7)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.sunday)
+                txt = findViewById(R.id.edit7)
+                txt.text = Editable.Factory.getInstance().newEditable(w?.sunday)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
             } else {
                 var txt = findViewById<EditText>(R.id.edit1)
                 txt.text = Editable.Factory.getInstance().newEditable(c?.wakeUp)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
                 txt = findViewById(R.id.edit2)
                 txt.text = Editable.Factory.getInstance().newEditable(c?.morning)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit3)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.lunch)
+                txt = findViewById(R.id.edit3)
+                txt.text = Editable.Factory.getInstance().newEditable(c?.lunchTime)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit4)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.thursday)
+                txt = findViewById(R.id.edit4)
+                txt.text = Editable.Factory.getInstance().newEditable(c?.afternoon)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit5)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.friday)
+                txt = findViewById(R.id.edit5)
+                txt.text = Editable.Factory.getInstance().newEditable(c?.dinnerTime)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit6)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.saturday)
+                txt = findViewById(R.id.edit6)
+                txt.text = Editable.Factory.getInstance().newEditable(c?.evening)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
 
-                //txt = findViewById(R.id.edit7)
-                //txt.text = Editable.Factory.getInstance().newEditable(w?.sunday)
+                txt = findViewById(R.id.edit7)
+                txt.text = Editable.Factory.getInstance().newEditable(c?.bedTime)
+                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
             }
 
-            //Toast.makeText(this, c?.bedTime, Toast.LENGTH_LONG).show()
         }
-        // read from db, if !null then populate
+
 
     }
     inner class GetCalenderFromDB(s : String) : AsyncTask<String, Int, Calender?>() {
