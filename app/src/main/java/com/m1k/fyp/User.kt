@@ -1,6 +1,5 @@
 package com.m1k.fyp
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
@@ -131,7 +130,7 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
 @Dao interface UserDBDao {
 
     @Query("SELECT * from Users")
-    fun getAll(): LiveData<List<User>>
+    fun getAll(): List<User>
 
     @Query("SELECT uName, picPath from Users")
     fun getAllNames(): List<NamePicPair>?

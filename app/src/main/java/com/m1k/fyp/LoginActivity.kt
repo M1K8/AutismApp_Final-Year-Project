@@ -1,16 +1,10 @@
 package com.m1k.fyp
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.annotation.TargetApi
-import android.graphics.BitmapFactory
+import android.app.Activity
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
-import android.text.TextUtils
-import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -21,13 +15,22 @@ class LoginActivity : AppCompatActivity() {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private var mAuthTask: UserLoginTask? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         // Set up the login form.
-        email_sign_in_button.setOnClickListener { attemptLogin() }
+
+
+        email_sign_in_button.setOnClickListener {
+            val newUser =
+                User(null, new_user.text.toString(), false, false, false, false, "test.png", Calender(), Week())
+
+            val c = CreateNewUser().execute(newUser)
+
+            c.get()
+            Toast.makeText(this, "User " + newUser.uName + " Created!", Toast.LENGTH_SHORT).show()
+            finish()
+        }
         val c = CheckSize().execute()
 
         if (c.get() > 0) {
@@ -38,47 +41,54 @@ class LoginActivity : AppCompatActivity() {
             //2 per room...
             var isFirstRow = true
 
-            //create stopgap
-            val spacerView = View(this)
-            val param = LinearLayout.LayoutParams(0, 0, 1f)
-
-            spacerView.layoutParams = param
+            //create stopga
             ////
 
             val layoutNeeded = findViewById<RelativeLayout>(R.id.users_list_view)
             val newTable = TableLayout(this)
 
             val userNamePicList = u.get()
+            var newRow: TableRow? = null
 
-            for (a: NamePicPair in userNamePicList) {
-                var newRow: TableRow? = null
+            for (a: User? in userNamePicList!!) {
                 var picV: ImageView?
                 //populate ting
                 if (isFirstRow) {
                     newRow = TableRow(this)
-                    newRow.addView(spacerView)
+
+                    /*val spacerView = LayoutInflater.from(this).inflate(R.layout.spacer,null, false)
+
+                    newRow.addView(spacerView)*/
                 }
 
                 val textV = TextView(this)
-                textV.text = a.uName
+                textV.text = a!!.uName
+
+                val rL = RelativeLayout(this)
 
                 val card = CardView(this)
-                card.addView(textV)
+                rL.addView(textV)
 
                 if (a.picPath != null) {
                     picV = ImageView(this)
-                    picV.setImageBitmap(BitmapFactory.decodeFile(a.picPath))
-                    card.addView(picV)
+                    picV.setImageResource(R.drawable.test)
+                    //picV.setImageBitmap(BitmapFactory.decodeFile(File(filesDir,"test.png").absolutePath))
+                    rL.addView(picV)
                 }
 
-
-
-
-
+                card.addView(rL)
                 newRow?.addView(card)
-                newTable.addView(newRow)
+                if (isFirstRow)
+                    newTable.addView(newRow)
 
                 isFirstRow = !isFirstRow
+                card.setOnClickListener {
+                    GlobalApp.setLogged(a.uName)
+                    Toast.makeText(this, "User " + a.uName + " logged in!", Toast.LENGTH_SHORT).show()
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+
             }
 
             layoutNeeded.addView(newTable)
@@ -90,83 +100,20 @@ class LoginActivity : AppCompatActivity() {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private fun attemptLogin() {
-        if (mAuthTask != null) {
-            return
-        }
 
-        // Reset errors.
-        email.error = null
-
-        // Store values at the time of the login attempt.
-        val emailStr = email.text.toString()
-
-        var cancel = false
-        var focusView: View? = null
-
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(emailStr)) {
-            email.error = getString(R.string.error_field_required)
-            focusView = email
-            cancel = true
-        } else if (!isEmailValid(emailStr)) {
-            email.error = getString(R.string.error_invalid_email)
-            focusView = email
-            cancel = true
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView?.requestFocus()
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true)
-            mAuthTask = UserLoginTask(emailStr)
-            mAuthTask!!.execute(emailStr)
-        }
-    }
-
-    private fun isEmailValid(email: String?): Boolean {
-        return email != null
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private fun showProgress(show: Boolean) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
-        login_form.visibility = if (show) View.GONE else View.VISIBLE
-        login_form.animate()
-            .setDuration(shortAnimTime)
-            .alpha((if (show) 0 else 1).toFloat())
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    login_form.visibility = if (show) View.GONE else View.VISIBLE
-                }
-            })
-        login_progress.visibility = if (show) View.VISIBLE else View.GONE
-        login_progress.animate()
-            .setDuration(shortAnimTime)
-            .alpha((if (show) 1 else 0).toFloat())
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    login_progress.visibility = if (show) View.VISIBLE else View.GONE
-                }
-            }
-            )
-    }
-
-    inner class GetAllUsers : AsyncTask<Void, Int, List<NamePicPair>>() {
+    inner class GetAllUsers : AsyncTask<Void, Int, List<User>>() {
         val db = UserDataBase.getDatabase(this@LoginActivity, null).userDataDao()
-        override fun doInBackground(vararg params: Void?): List<NamePicPair>? {
-            return db.getAllNames()
+        override fun doInBackground(vararg params: Void?): List<User> {
+            return db.getAll()
+        }
+
+    }
+
+    inner class CreateNewUser : AsyncTask<User, Int, Unit>() {
+        val db = UserDataBase.getDatabase(this@LoginActivity, null).userDataDao()
+        override fun doInBackground(vararg params: User) {
+            return db.insert(params[0])
+
         }
 
     }
@@ -177,30 +124,6 @@ class LoginActivity : AppCompatActivity() {
             return db.getCount()
         }
 
-    }
-
-    inner class UserLoginTask internal constructor(s: String) : AsyncTask<String, Void, User?>() {
-
-        val name = s
-        val db = UserDataBase.getDatabase(this@LoginActivity, null).userDataDao()
-
-        override fun doInBackground(vararg params: String?): User? {
-            return db.getByUserName(name)
-        }
-
-        override fun onPostExecute(success: User?) {
-            mAuthTask = null
-            showProgress(false)
-
-            if (success != null) {
-                finish()
-            }
-        }
-
-        override fun onCancelled() {
-            mAuthTask = null
-            showProgress(false)
-        }
     }
 
 }

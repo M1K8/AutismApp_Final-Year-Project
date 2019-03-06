@@ -9,6 +9,16 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.content_home.*
 
 class Home : AppCompatActivity() {
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (resultCode) {
+            RESULT_OK -> {
+                this.recreate()
+            }
+        }
+    }
    override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -31,7 +41,9 @@ class Home : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            var req = 0
+            startActivityForResult(intent, req)
+
         }
 
         camButton.setOnClickListener {
