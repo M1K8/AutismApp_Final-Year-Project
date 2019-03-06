@@ -1,6 +1,7 @@
 package com.m1k.fyp
 
 import android.arch.lifecycle.LiveData
+import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.content.Context
@@ -55,6 +56,7 @@ class Calender()
     }
 }
 
+@Entity
 class Week() {
     var monday: String = ""
     var monday_pic_path: String? = null
@@ -101,6 +103,18 @@ class Week() {
     }
 }
 
+@Entity
+class NamePicPair() {
+    var uName: String = ""
+    var picPath: String? = null
+
+    constructor(u: String, p: String?) : this() {
+        uName = u
+        picPath = p
+    }
+
+}
+
 @Entity(tableName = "Users")
 data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
                 @ColumnInfo(name="uName")var uName: String,
@@ -118,6 +132,12 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
 
     @Query("SELECT * from Users")
     fun getAll(): LiveData<List<User>>
+
+    @Query("SELECT uName, picPath from Users")
+    fun getAllNames(): List<NamePicPair>?
+
+    @Query("SELECT count(*) from Users")
+    fun getCount(): Int
 
     @Query("SELECT * from Users where uName =  :name ")
     fun getByUserName(name : String) : User?
@@ -159,6 +179,16 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     fun updateUser(userData : User)
 }
 
+private val rdc: RoomDatabase.Callback = object : RoomDatabase.Callback() {
+    override fun onCreate(db: SupportSQLiteDatabase) {
+        // do something after database has been created
+    }
+
+    override fun onOpen(db: SupportSQLiteDatabase) {
+        // do something every time database is open
+    }
+}
+
 @Database(entities = [User::class], version = 3, exportSchema = false)
 abstract class UserDataBase : RoomDatabase() {
 
@@ -178,7 +208,13 @@ abstract class UserDataBase : RoomDatabase() {
                     context.applicationContext,
                     UserDataBase::class.java,
                     "user_database"
-                ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
+                ).allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(rdc).build()
+
+                //force callback to be called
+                instance.beginTransaction()
+                instance.endTransaction()
+                //
+
                 INSTANCE = instance
                 return instance
             }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Home"
+    tools:showIn="@layout/activity_home">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/loginButton"
+                        android:layout_width="106dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="top|start"
+                        android:text="@string/login" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/settingsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top|end"
+                        android:text="@string/settings" />
+                </TableRow>
+            </TableLayout>
+        </android.support.design.widget.AppBarLayout>
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout">
+
+
+        <TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/drawButton"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="15dp"
+                app:srcCompat="@drawable/draw_icon" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/camButton"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginEnd="40dp"
+                app:srcCompat="@drawable/cam_icon" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/pecsButton"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="100dp"
+                app:srcCompat="@drawable/pecs_icon" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/strgButton"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                app:srcCompat="@drawable/strg_icon" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/calButton"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginEnd="40dp"
+                app:srcCompat="@drawable/cal_icon" />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+</android.support.constraint.ConstraintLayout>
