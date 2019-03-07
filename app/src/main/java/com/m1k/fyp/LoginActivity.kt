@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             val c = CreateNewUser(this).execute(newUser)
 
             c.get()
-            Toast.makeText(this, "User $newUser.uName  Created!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "User ${newUser.uName}  Created!", Toast.LENGTH_SHORT).show()
             GlobalApp.setLogged(newUser.uName)
             setResult(Activity.RESULT_OK)
             finish()
