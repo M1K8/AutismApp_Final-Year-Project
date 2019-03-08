@@ -18,7 +18,7 @@
 
         <TableRow
             android:id="@+id/bottom_menu"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="10dp">
             <View
                 android:layout_width="0dp"
                 android:layout_gravity="bottom|center"
@@ -31,8 +31,10 @@
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="A"
                 android:textColor="@android:color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 />
             <View
                 android:layout_width="0dp"
@@ -44,8 +46,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light"
-                android:text="B"
+                android:background="@android:color/holo_blue_dark"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:textColor="@android:color/white"/>
             <View
                 android:layout_width="0dp"
@@ -57,8 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light"
-                android:text="C"
+                android:background="@android:color/holo_green_light"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:textColor="@android:color/white"/>
             <View
                 android:layout_width="0dp"
@@ -71,8 +77,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light"
-                android:text="D"
+                android:background="@android:color/holo_purple"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:textColor="@android:color/white"/>
             <View
                 android:layout_width="0dp"
@@ -85,8 +93,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light"
-                android:text="E"
+                android:background="@android:color/holo_red_dark"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:textColor="@android:color/white"/>
             <View
                 android:layout_width="0dp"
@@ -99,8 +109,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light"
-                android:text="F"
+                android:background="@android:color/darker_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:textColor="@android:color/white"/>
             <View
                 android:layout_width="0dp"
@@ -113,8 +125,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/holo_orange_light"
-                android:text="G"
+                android:background="@android:color/black"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:textColor="@android:color/white"/>
             <View
                 android:layout_width="0dp"

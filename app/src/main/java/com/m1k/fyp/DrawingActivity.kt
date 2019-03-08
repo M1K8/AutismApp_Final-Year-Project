@@ -15,7 +15,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.activity_drawing.*
 import kotlinx.android.synthetic.main.draw_swipe_menu.*
 
 
@@ -23,12 +22,18 @@ import kotlinx.android.synthetic.main.draw_swipe_menu.*
 class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var mPaint = Paint()
     private var mPath = Path()
+    private var paths: MutableList<Path> = mutableListOf()
     private var colour = Color.BLACK
+    private var colorsMap: MutableMap<Path, Int> = mutableMapOf()
 
     private var mCurX = 0f
     private var mCurY = 0f
     private var mStartX = 0f
     private var mStartY = 0f
+
+    fun setColour(c: Int) {
+        colour = c
+    }
 
     init {
         mPaint.apply {
@@ -44,6 +49,11 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        for (p in paths) {
+            mPaint.color = colorsMap[p]!!
+            canvas.drawPath(p, mPaint)
+        }
+        mPaint.color = colour
         canvas.drawPath(mPath, mPaint)
     }
 
@@ -55,8 +65,17 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private fun actionMove(x: Float, y: Float) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
+
+        if (mCurX - x > 20 || mCurY - y > 20) {
+            vibrate(2)
+        } else if (mCurX - x > 50 || mCurY - y > 50) {
+            vibrate(5)
+        } else if (mCurX - x > 100 || mCurY - y > 100) {
+            vibrate(10)
+        } else vibrate()
         mCurX = x
         mCurY = y
+
     }
 
     private fun actionUp() {
@@ -68,6 +87,11 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             mPath.lineTo(mCurX + 1, mCurY + 2)
             mPath.lineTo(mCurX + 1, mCurY)
         }
+
+        paths.add(mPath)
+        colorsMap[mPath] = colour
+
+        mPath = Path()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -84,8 +108,18 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             MotionEvent.ACTION_MOVE -> actionMove(x, y)
             MotionEvent.ACTION_UP -> actionUp()
         }
+        //vibrate(0)
         invalidate()
         return true
+    }
+
+    @SuppressLint("NewApi")
+    //change intensity based on speed
+    fun vibrate(i: Int = 1) {
+        var v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        v.vibrate(
+            VibrationEffect.createWaveform(longArrayOf(0, 175), intArrayOf(0, i), -1)
+        )
     }
 }
 
@@ -100,26 +134,34 @@ class DrawingActivity : AppCompatActivity() {
 
         sheetBehavior = BottomSheetBehavior.from<LinearLayout>(draw_swipe_menu)
 
-
-        drawing_view.setOnClickListener{
-            vibrate()
+        button1.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.YELLOW)
         }
+
+        button2.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.BLUE)
+        }
+
+        button3.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.GREEN)
+        }
+
+        button4.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.MAGENTA)
+        }
+
+        button5.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.RED)
+        }
+
+        button6.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.LTGRAY)
+        }
+
+        button7.setOnClickListener {
+            findViewById<DrawView>(R.id.drawing_view).setColour(Color.BLACK)
+        }
+
      }
 
-    @SuppressLint("NewApi")
-    //change intensity based on speed
-    private fun vibrate(){
-        var v = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        v.vibrate(
-            VibrationEffect.createOneShot(
-                50,
-                // The default vibration strength of the device.
-                VibrationEffect.DEFAULT_AMPLITUDE
-            )
-        )
-    }
-
-
 }
-
-/* */
