@@ -5,11 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".DrawingActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/saveButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:gravity="top|end"
+            android:text="Save Drawing"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

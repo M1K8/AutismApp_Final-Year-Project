@@ -2,10 +2,7 @@ package com.m1k.fyp
 
 import android.app.Application
 
-class GlobalApp : Application() {
-
-
-    companion object {
+object GlobalApp : Application() {
         private var loggedIn : String? = null
         val CAM_REQ = 0
         fun getLogged(): String? {
@@ -21,5 +18,4 @@ class GlobalApp : Application() {
 
         var t2s = false
         var c2 = false
-    }
 }

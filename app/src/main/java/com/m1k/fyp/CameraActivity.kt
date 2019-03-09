@@ -3,12 +3,17 @@ package com.m1k.fyp
 import android.Manifest
 import android.content.pm.PackageManager
 import android.hardware.Camera
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_camera.*
+import java.io.FileOutputStream
+import java.util.*
 
 
 @Suppress("DEPRECATION") //camera2 has too much of a learning curve, and is also superfluous for my needs
@@ -55,6 +60,47 @@ class CameraActivity : AppCompatActivity() {
         init()
 
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        init()
+    }
+
+    inner class PictureDoneCallback : Camera.PictureCallback {
+
+        inner class SaveAsync : AsyncTask<ByteArray, Int, Unit>() {
+            override fun doInBackground(vararg params: ByteArray) {
+                val picFile =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYPPicture_${Calendar.getInstance().time}.png"
+
+                try {
+                    val fos = FileOutputStream(picFile)
+                    fos.write(params[0])
+                    fos.close()
+
+                } catch (e: Exception) {
+                    //Looper.prepare()
+                    Toast.makeText(this@CameraActivity, e.message, Toast.LENGTH_LONG).show()
+
+                }
+            }
+        }
+
+        override fun onPictureTaken(data: ByteArray, camera: Camera) {
+            try {
+                val sp = SaveAsync().execute(data)
+
+                //sp.get()
+                Toast.makeText(this@CameraActivity, "Picture Taken", Toast.LENGTH_LONG).show()
+
+                mCamera?.startPreview()
+
+            } catch (e: Exception) {
+                //Looper.prepare()
+                Toast.makeText(this@CameraActivity, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
     private fun init() {
         // Create an instance of Camera
         mCamera = getCameraInstance()
@@ -69,6 +115,15 @@ class CameraActivity : AppCompatActivity() {
             val preview: FrameLayout = findViewById(R.id.camera_preview)
             preview.addView(it)
         }
+
+
+        button_capture.setOnClickListener {
+            if (mCamera != null) {
+                mCamera!!.takePicture(null, null, PictureDoneCallback())
+
+            }
+        }
+
 
 
         button_swap.setOnClickListener {
