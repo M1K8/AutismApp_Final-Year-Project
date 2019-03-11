@@ -22,8 +22,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        // Set up the login form.
-
 
         delButt.setOnClickListener {
             val d = DropAll(this).execute()
@@ -58,16 +56,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     companion object {
         class GetAllUsers(private val loginActivity: LoginActivity) : AsyncTask<Void, Int, List<User>>() {
-            val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
             override fun doInBackground(vararg params: Void?): List<User> {
                 return db.getAll()
             }
         }
 
         class DropAll(private val loginActivity: LoginActivity) : AsyncTask<Void, Int, Unit>() {
-            val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
             override fun doInBackground(vararg params: Void?) {
                 return db.deleteAll()
 
@@ -75,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         class CreateNewUser(private val loginActivity: LoginActivity) : AsyncTask<User, Int, Unit>() {
-            val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
             override fun doInBackground(vararg params: User) {
                 return db.insert(params[0])
 
@@ -83,11 +82,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         class CheckSize(private val loginActivity: LoginActivity) : AsyncTask<Void, Int, Int>() {
-            val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
             override fun doInBackground(vararg params: Void?): Int {
                 return db.getCount()
             }
         }
+
 
         class RecyclerAdapter(private val loginActivity: LoginActivity) :
             RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {

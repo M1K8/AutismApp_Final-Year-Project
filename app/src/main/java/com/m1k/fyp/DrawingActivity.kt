@@ -11,8 +11,10 @@ import android.os.Vibrator
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_drawing.*
@@ -35,11 +37,24 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var mStartX = 0f
     private var mStartY = 0f
 
+    private var maxY = 9999
+
+
+
+
+
     fun setColour(c: Int) {
         colour = c
     }
 
     init {
+        val wr = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val d = DisplayMetrics()
+
+        wr.defaultDisplay.getMetrics(d)
+
+        maxY = d.heightPixels - 196
+
         mPaint.apply {
             color = colour
             style = Paint.Style.STROKE
@@ -111,12 +126,22 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
+                if (y >= maxY) {
+                    invalidate()
+                    return false
+                }
                 mStartX = x
                 mStartY = y
                 actionDown(x, y)
             }
             MotionEvent.ACTION_MOVE -> actionMove(x, y)
-            MotionEvent.ACTION_UP -> actionUp()
+            MotionEvent.ACTION_UP -> {
+                if (y >= maxY) {
+                    invalidate()
+                    return false
+                }
+                actionUp()
+            }
         }
         //vibrate(0)
         invalidate()
@@ -126,7 +151,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     @SuppressLint("NewApi")
     //change intensity based on speed
     fun vibrate(i: Int = 1) {
-        var v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         v.vibrate(
             VibrationEffect.createWaveform(longArrayOf(0, 175), intArrayOf(0, i), -1)
         )

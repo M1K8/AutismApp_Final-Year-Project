@@ -66,6 +66,11 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, CalenderActivity::class.java)
             startActivity(intent)
         }
+
+       pecsButton.setOnClickListener {
+           val intent = Intent(this, PECSActivity::class.java)
+           startActivity(intent)
+       }
     }
 
 

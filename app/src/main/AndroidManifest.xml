@@ -23,10 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".PECSActivity"
+            android:label="PECS"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+        <activity
             android:name=".CalenderActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Design.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".DrawingActivity"
