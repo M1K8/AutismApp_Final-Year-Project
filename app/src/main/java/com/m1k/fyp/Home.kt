@@ -47,7 +47,7 @@ class Home : AppCompatActivity() {
             RESULT_OK -> {
                 this.findViewById<Button>(R.id.logOutButt).visibility = VISIBLE
                 this.findViewById<Button>(R.id.logOutButt).invalidate()
-                //this.recreate()
+
                 init()
             }
         }
@@ -96,8 +96,8 @@ class Home : AppCompatActivity() {
            this.findViewById<Button>(R.id.logOutButt).visibility = GONE
            Toast.makeText(this, "User ${GlobalApp.getLogged()} logged out", Toast.LENGTH_SHORT).show()
            GlobalApp.logOut()
+
            init()
-           //this.recreate()
        }
     }
 
@@ -116,7 +116,7 @@ class Home : AppCompatActivity() {
     }
 
     inner class GetSettingsFromDB(val name: String) : AsyncTask<String, Int, Settings?>() {
-        private val db = UserDataBase.getDatabase(this@Home, null).userDataDao()
+        private val db = UserDataBase.getDatabase(this@Home).userDataDao()
         override fun doInBackground(vararg params: String?): Settings? {
             return db.getSettingsByName(name)
         }

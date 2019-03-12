@@ -10,16 +10,16 @@ class Settings(var draw_vibrate : Boolean, var general_vibrate : Boolean, var tx
 
 class SettingsActivity : AppCompatActivity() {
 
-    var _draw_vib = false
-    var _vib = false
-    var _t2s = false
-    var _c2 = false
+    private var _draw_vib = false
+    private var _vib = false
+    private var _t2s = false
+    private var _c2 = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        var loggedIn = GlobalApp.getLogged()
+        val loggedIn = GlobalApp.getLogged()
 
         _draw_vib =  GlobalApp.draw_vib
         _vib = GlobalApp.vib
@@ -75,40 +75,32 @@ class SettingsActivity : AppCompatActivity() {
    }
 
 
-    inner class WriteDVToDB(s : String, b : Boolean) : AsyncTask<String, Int, Unit>() {
-        val db = UserDataBase.getDatabase(this@SettingsActivity, null).userDataDao()
-        val name = s
-        val v = b
+    inner class WriteDVToDB(val name: String, private val v: Boolean) : AsyncTask<String, Int, Unit>() {
+        private val db = UserDataBase.getDatabase(this@SettingsActivity).userDataDao()
 
         override fun doInBackground(vararg params: String?) {
             return db.updateDrawVibByUser(name, v)
         }
     }
 
-    inner class WriteGVToDB(s : String, b : Boolean) : AsyncTask<String, Int, Unit>() {
-        val name = s
-        val v = b
-        val db = UserDataBase.getDatabase(this@SettingsActivity, null).userDataDao()
+    inner class WriteGVToDB(private val name: String, private val v: Boolean) : AsyncTask<String, Int, Unit>() {
+        private val db = UserDataBase.getDatabase(this@SettingsActivity).userDataDao()
 
         override fun doInBackground(vararg params: String?) {
             return db.updateGenVibByUser(name,v)
         }
     }
 
-    inner class WriteT2SToDB(s : String, b : Boolean) : AsyncTask<String, Int, Unit>() {
-        val name = s
-        val v = b
-        val db = UserDataBase.getDatabase(this@SettingsActivity, null).userDataDao()
+    inner class WriteT2SToDB(private val name: String, private val v: Boolean) : AsyncTask<String, Int, Unit>() {
+        private val db = UserDataBase.getDatabase(this@SettingsActivity).userDataDao()
 
         override fun doInBackground(vararg params: String?) {
             return db.updateT2sByUser(name,v)
         }
     }
 
-    inner class WriteCalWeeklyToDB(s : String, b : Boolean) : AsyncTask<String, Int, Unit>() {
-        val name = s
-        val v = b
-        val db = UserDataBase.getDatabase(this@SettingsActivity, null).userDataDao()
+    inner class WriteCalWeeklyToDB(private val name: String, private val v: Boolean) : AsyncTask<String, Int, Unit>() {
+        private val db = UserDataBase.getDatabase(this@SettingsActivity).userDataDao()
 
         override fun doInBackground(vararg params: String?) {
             return db.updateCalWeeklyByUser(name,v)

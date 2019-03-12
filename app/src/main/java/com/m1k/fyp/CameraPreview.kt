@@ -5,7 +5,6 @@ package com.m1k.fyp
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.hardware.Camera
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -17,9 +16,7 @@ class CameraPreview(
     private val mCamera: Camera
 ) : SurfaceView(context), SurfaceHolder.Callback {
 
-    val builder = AlertDialog.Builder(this.context)
-
-    val mHolder: SurfaceHolder = holder.apply { addCallback(this@CameraPreview) }
+    private val mHolder: SurfaceHolder = holder.apply { addCallback(this@CameraPreview) }
     override fun surfaceCreated(holder: SurfaceHolder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         mCamera.apply {

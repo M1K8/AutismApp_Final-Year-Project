@@ -40,9 +40,6 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var maxY = 9999
 
 
-
-
-
     fun setColour(c: Int) {
         colour = c
     }

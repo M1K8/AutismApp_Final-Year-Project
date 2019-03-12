@@ -58,31 +58,31 @@ class LoginActivity : AppCompatActivity() {
 
 
     companion object {
-        class GetAllUsers(private val loginActivity: LoginActivity) : AsyncTask<Void, Int, List<User>>() {
-            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+        class GetAllUsers(loginActivity: LoginActivity) : AsyncTask<Void, Int, List<User>>() {
+            private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
             override fun doInBackground(vararg params: Void?): List<User> {
                 return db.getAll()
             }
         }
 
-        class DropAll(private val loginActivity: LoginActivity) : AsyncTask<Void, Int, Unit>() {
-            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+        class DropAll(loginActivity: LoginActivity) : AsyncTask<Void, Int, Unit>() {
+            private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
             override fun doInBackground(vararg params: Void?) {
                 return db.deleteAll()
 
             }
         }
 
-        class CreateNewUser(private val loginActivity: LoginActivity) : AsyncTask<User, Int, Unit>() {
-            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+        class CreateNewUser(loginActivity: LoginActivity) : AsyncTask<User, Int, Unit>() {
+            private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
             override fun doInBackground(vararg params: User) {
                 return db.insert(params[0])
 
             }
         }
 
-        class CheckSize(private val loginActivity: LoginActivity) : AsyncTask<Void, Int, Int>() {
-            private val db = UserDataBase.getDatabase(loginActivity, null).userDataDao()
+        class CheckSize(loginActivity: LoginActivity) : AsyncTask<Void, Int, Int>() {
+            private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
             override fun doInBackground(vararg params: Void?): Int {
                 return db.getCount()
             }
@@ -92,10 +92,8 @@ class LoginActivity : AppCompatActivity() {
         class RecyclerAdapter(private val loginActivity: LoginActivity) :
             RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             var users: List<User>? = null
-
             init {
                 val e = GetAllUsers(loginActivity).execute()
-
                 users = e.get()
             }
 
@@ -133,9 +131,7 @@ class LoginActivity : AppCompatActivity() {
                         loginActivity.setResult(Activity.RESULT_OK)
                         loginActivity.finish()
                     }
-
                 }
-
             }
         }
     }

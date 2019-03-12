@@ -18,10 +18,10 @@ import java.util.*
 
 @Suppress("DEPRECATION") //camera2 has too much of a learning curve, and is also superfluous for my needs
 class CameraActivity : AppCompatActivity() {
-    var numOfCams = Camera.getNumberOfCameras()
-    var lastCam = 0
+    private var numOfCams = Camera.getNumberOfCameras()
+    private var lastCam = 0
 
-    fun getCameraInstance(): Camera? {
+    private fun getCameraInstance(): Camera? {
         return try {
             Camera.open() // attempt to get a Camera instance, front
         } catch (e: Exception) {
@@ -125,8 +125,6 @@ class CameraActivity : AppCompatActivity() {
             }
         }
 
-
-
         button_swap.setOnClickListener {
             if (mCamera != null) {
                 if (numOfCams > 1) {
@@ -155,7 +153,6 @@ class CameraActivity : AppCompatActivity() {
 
                 }
             }
-
         }
 
         camera_preview.setOnClickListener {

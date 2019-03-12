@@ -1,10 +1,8 @@
 package com.m1k.fyp
 
-import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.content.Context
-import kotlinx.coroutines.CoroutineScope
 
 
 @Entity
@@ -78,7 +76,7 @@ class Week() {
     var sunday: String = ""
     var sunday_pic_path: String? = null
 
-    constructor(w : String, m : String, l : String, a : String, e : String, d : String, b : String) : this() {
+    internal constructor(w: String, m: String, l: String, a: String, e: String, d: String, b: String) : this() {
         monday = w
         monday_pic_path = null
 
@@ -103,15 +101,9 @@ class Week() {
 }
 
 @Entity
-class NamePicPair() {
+class NamePicPair {
     var uName: String = ""
     var picPath: String? = null
-
-    constructor(u: String, p: String?) : this() {
-        uName = u
-        picPath = p
-    }
-
 }
 
 @Entity(tableName = "Users")
@@ -178,16 +170,6 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     fun updateUser(userData : User)
 }
 
-private val rdc: RoomDatabase.Callback = object : RoomDatabase.Callback() {
-    override fun onCreate(db: SupportSQLiteDatabase) {
-        // do something after database has been created
-    }
-
-    override fun onOpen(db: SupportSQLiteDatabase) {
-        // do something every time database is open
-    }
-}
-
 @Database(entities = [User::class], version = 3, exportSchema = false)
 abstract class UserDataBase : RoomDatabase() {
 
@@ -197,7 +179,7 @@ abstract class UserDataBase : RoomDatabase() {
         @Volatile
         private var INSTANCE: UserDataBase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope?): UserDataBase {
+        fun getDatabase(context: Context): UserDataBase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -207,12 +189,7 @@ abstract class UserDataBase : RoomDatabase() {
                     context.applicationContext,
                     UserDataBase::class.java,
                     "user_database"
-                ).allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(rdc).build()
-
-                //force callback to be called
-                instance.beginTransaction()
-                instance.endTransaction()
-                //
+                ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
                 INSTANCE = instance
                 return instance

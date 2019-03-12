@@ -103,7 +103,6 @@ class RecyclerAdapter(private val pecsActivity: PECSActivity) :
         for (i: Int in clothes) {
             pecs.add(i)
         }
-
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
@@ -121,21 +120,15 @@ class RecyclerAdapter(private val pecsActivity: PECSActivity) :
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var pecsImage: ImageView = itemView.findViewById(R.id.pecs_image)
 
         init {
             itemView.setOnClickListener {
                 val im = ImageView(itemView.context)
                 im.setImageResource(pecs[adapterPosition])
-
                 AlertDialog.Builder(itemView.context).setView(im).create().show()
-
-
             }
-
         }
     }
-
 
 }
