@@ -36,7 +36,7 @@ class SettingsActivity : AppCompatActivity() {
         val c2_s = findViewById<Switch>(R.id.calWeeklySwitch)
         c2_s.isChecked = _c2
 
-        dv_s.setOnCheckedChangeListener{ buttonView, isChecked ->
+        dv_s.setOnCheckedChangeListener { _, isChecked ->
             _draw_vib = isChecked
 
             if (loggedIn != null) {
@@ -46,7 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
-        v_s.setOnCheckedChangeListener{ buttonView, isChecked ->
+        v_s.setOnCheckedChangeListener { _, isChecked ->
             _vib = isChecked
             if (loggedIn != null) {
                 WriteGVToDB(loggedIn,_vib).execute()
@@ -55,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
-        t2s_s.setOnCheckedChangeListener{ buttonView, isChecked ->
+        t2s_s.setOnCheckedChangeListener { _, isChecked ->
             _t2s = isChecked
             if (loggedIn != null) {
                 WriteT2SToDB(loggedIn,_t2s).execute()
@@ -64,7 +64,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
-        c2_s.setOnCheckedChangeListener{ buttonView, isChecked ->
+        c2_s.setOnCheckedChangeListener { _, isChecked ->
             _c2 = isChecked
             if (loggedIn != null) {
                 WriteCalWeeklyToDB(loggedIn,_c2).execute()

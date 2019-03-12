@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.content_home.*
 
@@ -27,8 +28,14 @@ class Home : AppCompatActivity() {
                 GlobalApp.t2s = s.txt2Speech
                 GlobalApp.c2 = s.calWeekly
             }
+
+            findViewById<TextView>(R.id.welcomeText).text = "Welcome, $loggedIn !"
+            findViewById<TextView>(R.id.welcomeText).invalidate()
+
         } else {
             findViewById<Button>(R.id.logOutButt).visibility = GONE
+            findViewById<TextView>(R.id.welcomeText).text = ""
+            findViewById<TextView>(R.id.welcomeText).invalidate()
             this.findViewById<Button>(R.id.logOutButt).invalidate()
         }
     }
