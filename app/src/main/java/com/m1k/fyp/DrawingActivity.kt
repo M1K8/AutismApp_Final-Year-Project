@@ -86,17 +86,19 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
         if (mCurX - x > 20 || mCurY - y > 20) {
-            vibrate(2)
-        } else if (mCurX - x > 50 || mCurY - y > 50) {
-            vibrate(5)
-        } else if (mCurX - x > 100 || mCurY - y > 100) {
             vibrate(10)
+        } else if (mCurX - x > 50 || mCurY - y > 50) {
+            vibrate(25)
+        } else if (mCurX - x > 100 || mCurY - y > 100) {
+            vibrate(50)
         } else if (mCurX - x > 200 || mCurY - y > 200) {
-            vibrate(40)
+            vibrate(75)
         } else if (mCurX - x > 250 || mCurY - y > 250) {
-            vibrate(60)
-        } else if (mCurX - x > 300 || mCurY - y > 300) {
             vibrate(100)
+        } else if (mCurX - x > 300 || mCurY - y > 300) {
+            vibrate(150)
+        } else if (mCurX - x > 400 || mCurY - y > 400) {
+            vibrate(250)
         } else vibrate()
         mCurX = x
         mCurY = y
@@ -143,7 +145,6 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
                 actionUp()
             }
         }
-        //vibrate(0)
         invalidate()
         return true
     }
@@ -153,7 +154,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     fun vibrate(i: Int = 1) {
         val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         v.vibrate(
-            VibrationEffect.createWaveform(longArrayOf(0, 175), intArrayOf(0, i), -1)
+            VibrationEffect.createWaveform(longArrayOf(0, 125), intArrayOf(0, i), -1)
         )
     }
 
@@ -163,8 +164,11 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         tempCan.drawColor(Color.WHITE)
 
         this.draw(tempCan)
-        val s =
+        val s: String = if (GlobalApp.isLogged()) {
+            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
+        } else {
             Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/FYPDrawing_${Calendar.getInstance().time}.png"
+        }
 
         val writeTo = File(s)
 

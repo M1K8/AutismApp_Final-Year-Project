@@ -1,6 +1,8 @@
 package com.m1k.fyp
 
+import android.graphics.Rect
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -18,14 +20,35 @@ class PECSActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pecs)
 
-        if (true) {
-            layoutManager = GridLayoutManager(this, 2)
-            PECSList.layoutManager = layoutManager
+        layoutManager = GridLayoutManager(this, 2)
+        PECSList.layoutManager = layoutManager
 
-            adapter = RecyclerAdapter(this)
-            PECSList.adapter = adapter
+        adapter = RecyclerAdapter(this)
+        PECSList.adapter = adapter
+
+        findViewById<RecyclerView>(R.id.PECSList).addItemDecoration(MarginItemDecoration(70))
+
+
+    }
+
+
+    //from https://medium.com/@elye.project/right-way-of-setting-margin-on-recycler-views-cell-319da259b641
+    inner class MarginItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect, view: View,
+            parent: RecyclerView, state: RecyclerView.State
+        ) {
+            with(outRect) {
+                if (parent.getChildAdapterPosition(view) == 0 || parent.getChildAdapterPosition(view) == 1) {
+                    top = spaceHeight
+                }
+                left = spaceHeight
+                right = spaceHeight
+                bottom = spaceHeight
+            }
         }
     }
+    //https://medium.com/@elye.project/right-way-of-setting-margin-on-recycler-views-cell-319da259b641
 }
 
 class RecyclerAdapter(private val pecsActivity: PECSActivity) :
@@ -103,10 +126,16 @@ class RecyclerAdapter(private val pecsActivity: PECSActivity) :
 
         init {
             itemView.setOnClickListener {
+                val im = ImageView(itemView.context)
+                im.setImageResource(pecs[adapterPosition])
+
+                AlertDialog.Builder(itemView.context).setView(im).create().show()
+
 
             }
 
         }
-
     }
+
+
 }

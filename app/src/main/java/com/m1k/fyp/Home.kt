@@ -5,29 +5,20 @@ import android.content.res.Configuration
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.content_home.*
 
 class Home : AppCompatActivity() {
+    private var loggedIn = GlobalApp.getLogged()
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
 
-        when (resultCode) {
-            RESULT_OK -> {
-                this.recreate()
-            }
-        }
-    }
-   override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-
-        val loggedIn = GlobalApp.getLogged()
-
+    private fun init() {
+        loggedIn = GlobalApp.getLogged()
         if (loggedIn != null) {
-            val settProm = GetSettingsFromDB(loggedIn).execute()
+            val settProm = GetSettingsFromDB(loggedIn!!).execute()
             val s = settProm.get()
 
             if (s != null) {
@@ -36,12 +27,34 @@ class Home : AppCompatActivity() {
                 GlobalApp.t2s = s.txt2Speech
                 GlobalApp.c2 = s.calWeekly
             }
-
+        } else {
+            findViewById<Button>(R.id.logOutButt).visibility = GONE
+            this.findViewById<Button>(R.id.logOutButt).invalidate()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (resultCode) {
+            RESULT_OK -> {
+                this.findViewById<Button>(R.id.logOutButt).visibility = VISIBLE
+                this.findViewById<Button>(R.id.logOutButt).invalidate()
+                //this.recreate()
+                init()
+            }
+        }
+    }
+   override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+
+       init()
 
         loginButton.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
-            var req = 0
+            val req = 0
             startActivityForResult(intent, req)
 
         }
@@ -71,6 +84,14 @@ class Home : AppCompatActivity() {
            val intent = Intent(this, PECSActivity::class.java)
            startActivity(intent)
        }
+
+       logOutButt.setOnClickListener {
+           this.findViewById<Button>(R.id.logOutButt).visibility = GONE
+           Toast.makeText(this, "User ${GlobalApp.getLogged()} logged out", Toast.LENGTH_SHORT).show()
+           GlobalApp.logOut()
+           init()
+           //this.recreate()
+       }
     }
 
 
@@ -80,15 +101,15 @@ class Home : AppCompatActivity() {
 
         if (newConfig?.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show()
+            setContentView(R.layout.content_home)
         } else if (newConfig?.orientation == Configuration.ORIENTATION_PORTRAIT){
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show()
         }
 
     }
 
-    inner class GetSettingsFromDB(s : String) : AsyncTask<String, Int, Settings?>() {
-        val name = s
-        val db = UserDataBase.getDatabase(this@Home, null).userDataDao()
+    inner class GetSettingsFromDB(val name: String) : AsyncTask<String, Int, Settings?>() {
+        private val db = UserDataBase.getDatabase(this@Home, null).userDataDao()
         override fun doInBackground(vararg params: String?): Settings? {
             return db.getSettingsByName(name)
         }

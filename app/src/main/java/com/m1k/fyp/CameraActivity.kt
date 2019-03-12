@@ -70,8 +70,11 @@ class CameraActivity : AppCompatActivity() {
 
         inner class SaveAsync : AsyncTask<ByteArray, Int, Unit>() {
             override fun doInBackground(vararg params: ByteArray) {
-                val picFile =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYPPicture_${Calendar.getInstance().time}.png"
+                val picFile: String = if (GlobalApp.isLogged()) {
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
+                } else {
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYPDrawing_${Calendar.getInstance().time}.png"
+                }
 
                 try {
                     val fos = FileOutputStream(picFile)
@@ -88,9 +91,7 @@ class CameraActivity : AppCompatActivity() {
 
         override fun onPictureTaken(data: ByteArray, camera: Camera) {
             try {
-                val sp = SaveAsync().execute(data)
-
-                //sp.get()
+                SaveAsync().execute(data)
                 Toast.makeText(this@CameraActivity, "Picture Taken", Toast.LENGTH_LONG).show()
 
                 mCamera?.startPreview()

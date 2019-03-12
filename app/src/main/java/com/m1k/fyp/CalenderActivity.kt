@@ -131,9 +131,9 @@ class CalenderActivity : AppCompatActivity() {
 
 
     }
-    inner class GetCalenderFromDB(s : String) : AsyncTask<String, Int, Calender?>() {
-        val name = s
-        val db = UserDataBase.getDatabase(this@CalenderActivity, null).userDataDao()
+
+    inner class GetCalenderFromDB(val name: String) : AsyncTask<String, Int, Calender?>() {
+        private val db = UserDataBase.getDatabase(this@CalenderActivity, null).userDataDao()
         override fun doInBackground(vararg params: String?): Calender? {
             calSession = db.getCalenderByName(name)
 
@@ -142,9 +142,8 @@ class CalenderActivity : AppCompatActivity() {
 
     }
 
-    inner class GetWeekFromDB(s : String) : AsyncTask<String, Int, Week?>() {
-        val name = s
-        val db = UserDataBase.getDatabase(this@CalenderActivity, null).userDataDao()
+    inner class GetWeekFromDB(val name: String) : AsyncTask<String, Int, Week?>() {
+        private val db = UserDataBase.getDatabase(this@CalenderActivity, null).userDataDao()
         override fun doInBackground(vararg params: String?): Week? {
             weekSession = db.getWeekByName(name)
 
