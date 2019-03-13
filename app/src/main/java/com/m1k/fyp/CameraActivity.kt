@@ -71,9 +71,9 @@ class CameraActivity : AppCompatActivity() {
         inner class SaveAsync : AsyncTask<ByteArray, Int, Unit>() {
             override fun doInBackground(vararg params: ByteArray) {
                 val picFile: String = if (GlobalApp.isLogged()) {
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYP/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
                 } else {
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYPDrawing_${Calendar.getInstance().time}.png"
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYP//Public/FYPDrawing_${Calendar.getInstance().time}.png"
                 }
 
                 try {

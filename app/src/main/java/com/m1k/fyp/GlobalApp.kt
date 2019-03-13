@@ -20,7 +20,7 @@ object GlobalApp : Application() {
     }
 
     fun isLogged(): Boolean {
-        return loggedIn == null
+        return (loggedIn != null)
     }
 
     fun logOut() {

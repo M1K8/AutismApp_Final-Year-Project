@@ -162,9 +162,9 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         this.draw(tempCan)
         val s: String = if (GlobalApp.isLogged()) {
-            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
+            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/FYP/Public/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
         } else {
-            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/FYPDrawing_${Calendar.getInstance().time}.png"
+            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/FYP/FYPDrawing_${Calendar.getInstance().time}.png"
         }
 
         val writeTo = File(s)
