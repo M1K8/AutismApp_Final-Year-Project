@@ -3,15 +3,24 @@ package com.m1k.fyp
 import android.content.res.Resources
 import android.os.AsyncTask
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.widget.EditText
 import android.widget.TextView
+import java.util.*
 
-class CalenderActivity : AppCompatActivity() {
+class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            tts.language = Locale.UK
+        }
+    }
 
     var calSession : Calender? = null
     var weekSession : Week? = null
+    var tts = TextToSpeech(this, this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calender)
@@ -69,62 +78,148 @@ class CalenderActivity : AppCompatActivity() {
             val weekProm = GetWeekFromDB(loggedIn).execute()
             val w = weekProm.get()
 
+            fun t2s(s : String) {
+                tts.speak(s,TextToSpeech.QUEUE_FLUSH, null, "")
+            }
+
             if (GlobalApp.c2) {
                 var txt = findViewById<EditText>(R.id.edit1)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.monday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.monday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
                 txt = findViewById(R.id.edit2)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.tuesday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.tuesday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit3)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.wednesday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.wednesday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit4)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.thursday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.thursday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit5)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.friday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.friday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit6)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.saturday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.saturday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit7)
-                txt.text = Editable.Factory.getInstance().newEditable(w?.sunday)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(w?.sunday)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
             } else {
                 var txt = findViewById<EditText>(R.id.edit1)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.wakeUp)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.wakeUp)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit2)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.morning)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.morning)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit3)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.lunchTime)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.lunchTime)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit4)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.afternoon)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.afternoon)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit5)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.dinnerTime)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.dinnerTime)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
 
                 txt = findViewById(R.id.edit6)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.evening)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.evening)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
                 txt = findViewById(R.id.edit7)
-                txt.text = Editable.Factory.getInstance().newEditable(c?.bedTime)
-                txt.maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                txt.apply {
+                    text = Editable.Factory.getInstance().newEditable(c?.bedTime)
+                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                    setOnLongClickListener {
+                        t2s(txt.text.toString())
+                        true
+                    }
+                }
             }
 
         }
