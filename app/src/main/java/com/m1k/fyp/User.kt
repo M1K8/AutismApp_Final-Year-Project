@@ -166,6 +166,45 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     @Query("UPDATE Users SET picPath = :d where uName = :name")
     fun updatePicByUser(name : String, d : Boolean)
 
+    @Query("UPDATE Users SET monday = :m ,monday_pic_path = :mp ,tuesday = :t , tuesday_pic_path = :tp, wednesday = :w, wednesday_pic_path = :wp, thursday = :th, thursday_pic_path = :thp, friday = :f, friday_pic_path = :fp, saturday = :sa, saturday_pic_path = :sap, sunday = :su, sunday_pic_path = :sup where uName = :name")
+    fun updateCalendarByUser(
+        m: String,
+        mp: String?,
+        t: String,
+        tp: String?,
+        w: String,
+        wp: String?,
+        th: String,
+        thp: String?,
+        f: String,
+        fp: String?,
+        sa: String,
+        sap: String?,
+        su: String,
+        sup: String?,
+        name: String
+    )
+
+    @Query("UPDATE Users SET wakeUp = :w,wakeUp_pic_path= :wp,morning= :m, morning_pic_path= :mp, lunchTime= :l, lunchTime_pic_path= :lp, afternoon= :a, afternoon_pic_path= :ap, evening= :e, evening_pic_path= :ep, dinnerTime= :d, dinnerTime_pic_path= :dp, bedTime= :b, bedTime_pic_path= :bp where uName = :name")
+    fun updateWeekByUser(
+        w: String,
+        wp: String?,
+        m: String,
+        mp: String?,
+        l: String,
+        lp: String?,
+        a: String,
+        ap: String?,
+        e: String,
+        ep: String?,
+        d: String,
+        dp: String?,
+        b: String,
+        bp: String?,
+        name: String
+    )
+
+
     @Update
     fun updateUser(userData : User)
 }
