@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
 import java.util.*
@@ -13,7 +14,7 @@ import java.util.*
 class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            // set US English as language for tts
+            // set UK English as language for tts
             tts.language = Locale.UK
         }
     }
@@ -27,7 +28,11 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
         val loggedIn = GlobalApp.getLogged()
 
+        initBoxChange()
+
+
         if (GlobalApp.c2) {
+            weekSession = Week()
             var switch = findViewById<TextView>(R.id.title1)
             switch.text = "Monday"
 
@@ -49,6 +54,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             switch = findViewById(R.id.title7)
             switch.text = "Sunday"
         } else {
+            calSession = Calender()
             var switch = findViewById<TextView>(R.id.title1)
             switch.text = "Wake Up"
 
@@ -227,6 +233,43 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     }
 
+    override fun onDestroy() {
+        val loggedIn = GlobalApp.getLogged()!!
+
+        if (GlobalApp.c2)
+            WriteCalToDB(loggedIn, calSession!!).execute()
+        else
+            WriteWeekToDB(loggedIn, weekSession!!).execute()
+        super.onDestroy()
+    }
+
+    private fun initBoxChange() {
+
+        findViewById<EditText>(R.id.edit1).addTextChangedListener(Watch(R.id.edit1))
+
+        findViewById<EditText>(R.id.edit2).addTextChangedListener(Watch(R.id.edit2))
+
+        findViewById<EditText>(R.id.edit3).addTextChangedListener(Watch(R.id.edit3))
+
+        findViewById<EditText>(R.id.edit4).addTextChangedListener(Watch(R.id.edit4))
+
+        findViewById<EditText>(R.id.edit5).addTextChangedListener(Watch(R.id.edit5))
+
+        findViewById<EditText>(R.id.edit6).addTextChangedListener(Watch(R.id.edit6))
+
+        findViewById<EditText>(R.id.edit7).addTextChangedListener(Watch(R.id.edit7))
+
+    }
+
+    class Watch(rId: Int) : TextWatcher {
+
+        override fun afterTextChanged(s: Editable) {}
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    }
+
     inner class GetCalenderFromDB(val name: String) : AsyncTask<String, Int, Calender?>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
         override fun doInBackground(vararg params: String?): Calender? {
@@ -245,6 +288,22 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             return weekSession
         }
 
+    }
+
+    inner class WriteCalToDB(val name: String, private val c: Calender) : AsyncTask<String, Int, Unit>() {
+        private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
+
+        override fun doInBackground(vararg params: String?) {
+            //return db.updateCalendarByUser(c.morning, c.morning_pic_path, )
+        }
+    }
+
+    inner class WriteWeekToDB(val name: String, private val w: Week) : AsyncTask<String, Int, Unit>() {
+        private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
+
+        override fun doInBackground(vararg params: String?) {
+            //return db.updateCalendarByUser(c.morning, c.morning_pic_path, )
+        }
     }
 
 }

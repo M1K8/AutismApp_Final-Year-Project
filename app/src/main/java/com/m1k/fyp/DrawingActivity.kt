@@ -82,21 +82,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private fun actionMove(x: Float, y: Float) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
-        if (mCurX - x > 20 || mCurY - y > 20) {
-            vibrate(100)
-        /*} else if (mCurX - x > 50 || mCurY - y > 50) {
-            vibrate(25)
-        } else if (mCurX - x > 100 || mCurY - y > 100) {
-            vibrate(50)
-        } else if (mCurX - x > 200 || mCurY - y > 200) {
-            vibrate(75)
-        } else if (mCurX - x > 250 || mCurY - y > 250) {
-            vibrate(100)
-        } else if (mCurX - x > 300 || mCurY - y > 300) {
-            vibrate(150)
-        } else if (mCurX - x > 400 || mCurY - y > 400) {
-            vibrate(250)
-        */ }  else vibrate()
+        vibrate(50)
         mCurX = x
         mCurY = y
 
@@ -116,9 +102,6 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         colorsMap[mPath] = colour
 
         mPath = Path()
-
-        //val distance = Math.sqrt((mCurX - mStartX).toDouble().pow(2) + (mCurY - mStartY).toDouble().pow(2))
-
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -154,7 +137,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     fun vibrate(i: Int = 1) {
         val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         v.vibrate(
-            VibrationEffect.createWaveform(longArrayOf(0, 125), intArrayOf(0, i), -1)
+            VibrationEffect.createWaveform(longArrayOf(0, 25), intArrayOf(0, i), -1)
         )
     }
 
