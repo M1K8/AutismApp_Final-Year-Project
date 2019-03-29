@@ -83,8 +83,8 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
         if (mCurX - x > 20 || mCurY - y > 20) {
-            vibrate(10)
-        } else if (mCurX - x > 50 || mCurY - y > 50) {
+            vibrate(100)
+        /*} else if (mCurX - x > 50 || mCurY - y > 50) {
             vibrate(25)
         } else if (mCurX - x > 100 || mCurY - y > 100) {
             vibrate(50)
@@ -96,7 +96,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             vibrate(150)
         } else if (mCurX - x > 400 || mCurY - y > 400) {
             vibrate(250)
-        } else vibrate()
+        */ }  else vibrate()
         mCurX = x
         mCurY = y
 
@@ -116,6 +116,9 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         colorsMap[mPath] = colour
 
         mPath = Path()
+
+        //val distance = Math.sqrt((mCurX - mStartX).toDouble().pow(2) + (mCurY - mStartY).toDouble().pow(2))
+
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
