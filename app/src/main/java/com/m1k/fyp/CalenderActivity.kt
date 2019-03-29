@@ -7,6 +7,7 @@ import android.speech.tts.TextToSpeech
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.SparseArray
 import android.widget.EditText
 import android.widget.TextView
 import java.util.*
@@ -21,7 +22,18 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     var calSession : Calender? = null
     var weekSession : Week? = null
+
+    //below is used to update text
+
+    //Int = R.id, f1() == weekUpdater, f2() == calender updater
+    var weekCalPair : SparseArray<Pair<  (s : String) -> Unit  , (s : String) -> Unit   >> = SparseArray()
+
     var tts = TextToSpeech(this, this)
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calender)
@@ -246,24 +258,90 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
     private fun initBoxChange() {
 
         findViewById<EditText>(R.id.edit1).addTextChangedListener(Watch(R.id.edit1))
+        weekCalPair.append(R.id.edit1,Pair(::updateCal1, ::updateWeek1))
 
         findViewById<EditText>(R.id.edit2).addTextChangedListener(Watch(R.id.edit2))
+        weekCalPair.append(R.id.edit2,Pair(::updateCal2, ::updateWeek2))
 
         findViewById<EditText>(R.id.edit3).addTextChangedListener(Watch(R.id.edit3))
+        weekCalPair.append(R.id.edit3,Pair(::updateCal3, ::updateWeek3))
 
         findViewById<EditText>(R.id.edit4).addTextChangedListener(Watch(R.id.edit4))
+        weekCalPair.append(R.id.edit4,Pair(::updateCal4, ::updateWeek4))
 
         findViewById<EditText>(R.id.edit5).addTextChangedListener(Watch(R.id.edit5))
+        weekCalPair.append(R.id.edit5,Pair(::updateCal5, ::updateWeek5))
 
         findViewById<EditText>(R.id.edit6).addTextChangedListener(Watch(R.id.edit6))
+        weekCalPair.append(R.id.edit6,Pair(::updateCal6, ::updateWeek6))
 
         findViewById<EditText>(R.id.edit7).addTextChangedListener(Watch(R.id.edit7))
+        weekCalPair.append(R.id.edit7,Pair(::updateCal7, ::updateWeek7))
+
 
     }
 
-    class Watch(rId: Int) : TextWatcher {
+        fun updateCal1 (s : String) {
+            calSession?.wakeUp = s
+        }
+        fun updateWeek1 (s : String) {
+            weekSession?.monday = s
+        }
 
-        override fun afterTextChanged(s: Editable) {}
+        fun updateCal2 (s : String) {
+            calSession?.morning = s
+        }
+        fun updateWeek2(s : String) {
+            weekSession?.tuesday = s
+        }
+
+        fun updateCal3(s : String) {
+            calSession?.lunchTime = s
+        }
+        fun updateWeek3(s : String) {
+            weekSession?.wednesday = s
+        }
+
+        fun updateCal4(s : String) {
+            calSession?.afternoon = s
+        }
+        fun updateWeek4(s : String) {
+            weekSession?.thursday = s
+        }
+
+        fun updateCal5(s : String) {
+            calSession?.dinnerTime = s
+        }
+        fun updateWeek5(s : String) {
+            weekSession?.friday = s
+        }
+
+        fun updateCal6(s : String) {
+            calSession?.evening = s
+        }
+        fun updateWeek6(s : String) {
+            weekSession?.saturday = s
+        }
+
+        fun updateCal7(s : String) {
+            calSession?.bedTime = s
+        }
+        fun updateWeek7(s : String) {
+            weekSession?.sunday = s
+        }
+
+
+    inner class Watch(val rId : Int) : TextWatcher {
+
+        override fun afterTextChanged(s: Editable) {
+            val pairVal = weekCalPair.get(rId)
+
+            if (GlobalApp.c2) //if day
+                pairVal.second(s.toString())
+            else
+                pairVal.first(s.toString())
+
+        }
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
@@ -304,6 +382,9 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         override fun doInBackground(vararg params: String?) {
             //return db.updateCalendarByUser(c.morning, c.morning_pic_path, )
         }
+
+
+
     }
 
 }
