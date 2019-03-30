@@ -86,10 +86,14 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
         }
         if (loggedIn != null) {
-            GetCalenderFromDB(loggedIn).execute()
+            val cProm = GetCalenderFromDB(loggedIn).execute()
 
 
-            GetWeekFromDB(loggedIn).execute()
+            val wProm = GetWeekFromDB(loggedIn).execute()
+
+            cProm.get()
+
+            wProm.get()
         }
 
             if (GlobalApp.c2) {
@@ -249,10 +253,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 val e = WriteCalToDB(loggedIn, GlobalApp.calSession!!).execute()
                 e.get()
             }
-        } else {
-
         }
-
     }
 
     private fun initBoxChange() {
