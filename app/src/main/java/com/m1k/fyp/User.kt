@@ -167,7 +167,7 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     fun updatePicByUser(name : String, d : Boolean)
 
     @Query("UPDATE Users SET monday = :m ,monday_pic_path = :mp ,tuesday = :t , tuesday_pic_path = :tp, wednesday = :w, wednesday_pic_path = :wp, thursday = :th, thursday_pic_path = :thp, friday = :f, friday_pic_path = :fp, saturday = :sa, saturday_pic_path = :sap, sunday = :su, sunday_pic_path = :sup where uName = :name")
-    fun updateCalendarByUser(
+    fun updateWeekByUser(
         m: String,
         mp: String?,
         t: String,
@@ -186,7 +186,7 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     )
 
     @Query("UPDATE Users SET wakeUp = :w,wakeUp_pic_path= :wp,morning= :m, morning_pic_path= :mp, lunchTime= :l, lunchTime_pic_path= :lp, afternoon= :a, afternoon_pic_path= :ap, evening= :e, evening_pic_path= :ep, dinnerTime= :d, dinnerTime_pic_path= :dp, bedTime= :b, bedTime_pic_path= :bp where uName = :name")
-    fun updateWeekByUser(
+    fun updateCalenderByUser(
         w: String,
         wp: String?,
         m: String,

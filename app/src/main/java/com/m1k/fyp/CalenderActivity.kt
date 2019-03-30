@@ -13,25 +13,23 @@ import android.widget.TextView
 import java.util.*
 
 class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
+
+    private var tts: TextToSpeech? = null
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             // set UK English as language for tts
-            tts.language = Locale.UK
+            tts?.language = Locale.UK
         }
     }
 
-    var calSession : Calender? = null
-    var weekSession : Week? = null
+    fun t2s(s: String) {
+        tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
 
-    //below is used to update text
+
 
     //Int = R.id, f1() == weekUpdater, f2() == calender updater
     var weekCalPair : SparseArray<Pair<  (s : String) -> Unit  , (s : String) -> Unit   >> = SparseArray()
-
-    var tts = TextToSpeech(this, this)
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,10 +39,9 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         val loggedIn = GlobalApp.getLogged()
 
         initBoxChange()
-
+        tts = TextToSpeech(this, this)
 
         if (GlobalApp.c2) {
-            weekSession = Week()
             var switch = findViewById<TextView>(R.id.title1)
             switch.text = "Monday"
 
@@ -66,7 +63,6 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             switch = findViewById(R.id.title7)
             switch.text = "Sunday"
         } else {
-            calSession = Calender()
             var switch = findViewById<TextView>(R.id.title1)
             switch.text = "Wake Up"
 
@@ -90,20 +86,16 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
         }
         if (loggedIn != null) {
-            val calProm = GetCalenderFromDB(loggedIn).execute()
-            val c = calProm.get()
+            GetCalenderFromDB(loggedIn).execute()
 
-            val weekProm = GetWeekFromDB(loggedIn).execute()
-            val w = weekProm.get()
 
-            fun t2s(s : String) {
-                tts.speak(s,TextToSpeech.QUEUE_FLUSH, null, "")
-            }
+            GetWeekFromDB(loggedIn).execute()
+        }
 
             if (GlobalApp.c2) {
                 var txt = findViewById<EditText>(R.id.edit1)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.monday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.monday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -112,7 +104,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 }
                 txt = findViewById(R.id.edit2)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.tuesday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.tuesday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -122,7 +114,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit3)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.wednesday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.wednesday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -132,7 +124,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit4)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.thursday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.thursday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -142,7 +134,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit5)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.friday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.friday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -152,7 +144,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit6)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.saturday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.saturday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -162,7 +154,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit7)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(w?.sunday)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.sunday)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -172,7 +164,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             } else {
                 var txt = findViewById<EditText>(R.id.edit1)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.wakeUp)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.wakeUp)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -182,7 +174,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit2)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.morning)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.morning)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -192,7 +184,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit3)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.lunchTime)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.lunchTime)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -202,7 +194,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit4)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.afternoon)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.afternoon)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -212,7 +204,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit5)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.dinnerTime)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.dinnerTime)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -222,7 +214,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
                 txt = findViewById(R.id.edit6)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.evening)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.evening)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -231,7 +223,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 }
                 txt = findViewById(R.id.edit7)
                 txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(c?.bedTime)
+                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.bedTime)
                     maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                     setOnLongClickListener {
                         t2s(txt.text.toString())
@@ -240,19 +232,27 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 }
             }
 
-        }
 
 
     }
 
-    override fun onDestroy() {
-        val loggedIn = GlobalApp.getLogged()!!
+    override fun onStop() {
+        super.onStop()
+        val loggedIn = GlobalApp.getLogged()
 
-        if (GlobalApp.c2)
-            WriteCalToDB(loggedIn, calSession!!).execute()
-        else
-            WriteWeekToDB(loggedIn, weekSession!!).execute()
-        super.onDestroy()
+        if (loggedIn != null) {
+
+            if (GlobalApp.c2) {
+                val e = WriteWeekToDB(loggedIn, GlobalApp.weekSession!!).execute()
+                e.get()
+            } else {
+                val e = WriteCalToDB(loggedIn, GlobalApp.calSession!!).execute()
+                e.get()
+            }
+        } else {
+
+        }
+
     }
 
     private fun initBoxChange() {
@@ -282,52 +282,52 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
     }
 
         fun updateCal1 (s : String) {
-            calSession?.wakeUp = s
+            GlobalApp.calSession?.wakeUp = s
         }
         fun updateWeek1 (s : String) {
-            weekSession?.monday = s
+            GlobalApp.weekSession?.monday = s
         }
 
         fun updateCal2 (s : String) {
-            calSession?.morning = s
+            GlobalApp.calSession?.morning = s
         }
         fun updateWeek2(s : String) {
-            weekSession?.tuesday = s
+            GlobalApp.weekSession?.tuesday = s
         }
 
         fun updateCal3(s : String) {
-            calSession?.lunchTime = s
+            GlobalApp.calSession?.lunchTime = s
         }
         fun updateWeek3(s : String) {
-            weekSession?.wednesday = s
+            GlobalApp.weekSession?.wednesday = s
         }
 
         fun updateCal4(s : String) {
-            calSession?.afternoon = s
+            GlobalApp.calSession?.afternoon = s
         }
         fun updateWeek4(s : String) {
-            weekSession?.thursday = s
+            GlobalApp.weekSession?.thursday = s
         }
 
         fun updateCal5(s : String) {
-            calSession?.dinnerTime = s
+            GlobalApp.calSession?.dinnerTime = s
         }
         fun updateWeek5(s : String) {
-            weekSession?.friday = s
+            GlobalApp.weekSession?.friday = s
         }
 
         fun updateCal6(s : String) {
-            calSession?.evening = s
+            GlobalApp.calSession?.evening = s
         }
         fun updateWeek6(s : String) {
-            weekSession?.saturday = s
+            GlobalApp.weekSession?.saturday = s
         }
 
         fun updateCal7(s : String) {
-            calSession?.bedTime = s
+            GlobalApp.calSession?.bedTime = s
         }
         fun updateWeek7(s : String) {
-            weekSession?.sunday = s
+            GlobalApp.weekSession?.sunday = s
         }
 
 
@@ -335,12 +335,17 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
         override fun afterTextChanged(s: Editable) {
             val pairVal = weekCalPair.get(rId)
+            val thisT = findViewById<EditText>(rId)
 
             if (GlobalApp.c2) //if day
                 pairVal.second(s.toString())
             else
                 pairVal.first(s.toString())
 
+            thisT.setOnLongClickListener {
+                t2s(thisT.text.toString())
+                true
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -348,22 +353,24 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     }
 
-    inner class GetCalenderFromDB(val name: String) : AsyncTask<String, Int, Calender?>() {
+    inner class GetCalenderFromDB(val name: String) : AsyncTask<String, Int, Calender>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
-        override fun doInBackground(vararg params: String?): Calender? {
-            calSession = db.getCalenderByName(name)
+        override fun doInBackground(vararg params: String?): Calender {
+            val f = db.getCalenderByName(name)
+            GlobalApp.calSession = f
 
-            return calSession
+            return f!!
         }
 
     }
 
-    inner class GetWeekFromDB(val name: String) : AsyncTask<String, Int, Week?>() {
+    inner class GetWeekFromDB(val name: String) : AsyncTask<String, Int, Week>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
-        override fun doInBackground(vararg params: String?): Week? {
-            weekSession = db.getWeekByName(name)
+        override fun doInBackground(vararg params: String?): Week {
+            val f = db.getWeekByName(name)
+            GlobalApp.weekSession = f
 
-            return weekSession
+            return f!!
         }
 
     }
@@ -372,7 +379,23 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
 
         override fun doInBackground(vararg params: String?) {
-            //return db.updateCalendarByUser(c.morning, c.morning_pic_path, )
+            return db.updateCalenderByUser(
+                c.wakeUp,
+                c.wakeUp_pic_path,
+                c.morning,
+                c.morning_pic_path,
+                c.lunchTime,
+                c.lunchTime_pic_path,
+                c.afternoon,
+                c.afternoon_pic_path,
+                c.evening,
+                c.evening_pic_path,
+                c.dinnerTime,
+                c.dinnerTime_pic_path,
+                c.bedTime,
+                c.bedTime_pic_path,
+                name
+            )
         }
     }
 
@@ -380,7 +403,23 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
 
         override fun doInBackground(vararg params: String?) {
-            //return db.updateCalendarByUser(c.morning, c.morning_pic_path, )
+            return db.updateWeekByUser(
+                w.monday,
+                w.monday_pic_path,
+                w.tuesday,
+                w.tuesday_pic_path,
+                w.wednesday,
+                w.wednesday_pic_path,
+                w.thursday,
+                w.thursday_pic_path,
+                w.friday,
+                w.friday_pic_path,
+                w.saturday,
+                w.saturday_pic_path,
+                w.sunday,
+                w.sunday_pic_path,
+                name
+            )
         }
 
 

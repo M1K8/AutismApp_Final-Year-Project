@@ -29,6 +29,12 @@ object GlobalApp : Application() {
         vib = false
         t2s = false
         c2 = false
+        calSession = Calender()
+        weekSession = Week()
     }
+
+
+    var calSession: Calender? = Calender()
+    var weekSession: Week? = Week()
 }
 
