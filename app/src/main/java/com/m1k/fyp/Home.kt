@@ -54,38 +54,38 @@ class Home : AppCompatActivity() {
     }
    override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+       super.onCreate(savedInstanceState)
+       setContentView(R.layout.activity_home)
 
        init()
 
-        loginButton.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            val req = 0
-            startActivityForResult(intent, req)
+       loginButton.setOnClickListener {
+           val intent = Intent(this, LoginActivity::class.java)
+           val req = 0
+           startActivityForResult(intent, req)
 
-        }
+       }
 
-        camButton.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
-        }
+       camButton.setOnClickListener {
+           val intent = Intent(this, CameraActivity::class.java)
+           startActivity(intent)
+       }
 
-        drawButton.setOnClickListener {
-            val intent = Intent(this, DrawingActivity::class.java)
-            startActivity(intent)
-        }
+       drawButton.setOnClickListener {
+           val intent = Intent(this, DrawingActivity::class.java)
+           startActivity(intent)
+       }
 
 
-        settingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
+       settingsButton.setOnClickListener {
+           val intent = Intent(this, SettingsActivity::class.java)
+           startActivity(intent)
+       }
 
-        calButton.setOnClickListener{
-            val intent = Intent(this, CalenderActivity::class.java)
-            startActivity(intent)
-        }
+       calButton.setOnClickListener {
+           val intent = Intent(this, CalenderActivity::class.java)
+           startActivity(intent)
+       }
 
        pecsButton.setOnClickListener {
            val intent = Intent(this, PECSActivity::class.java)
@@ -99,7 +99,14 @@ class Home : AppCompatActivity() {
 
            init()
        }
-    }
+
+
+       strgButton.setOnClickListener {
+           val intent = Intent(this, FileExplorer::class.java)
+           startActivity(intent)
+       }
+
+   }
 
 
 

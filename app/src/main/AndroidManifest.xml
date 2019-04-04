@@ -25,6 +25,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".FileExplorer"
+            android:label="@string/title_activity_file_explorer"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.m1k.fyp.Home" />
+        </activity>
+        <activity
             android:name=".PECSActivity"
             android:label="PECS"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
@@ -72,6 +81,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

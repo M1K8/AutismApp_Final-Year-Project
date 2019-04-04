@@ -1,14 +1,16 @@
 package com.m1k.fyp
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.*
 import android.os.Bundle
-import android.os.Environment
-import android.os.Environment.DIRECTORY_DCIM
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.support.design.widget.BottomSheetBehavior
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.util.DisplayMetrics
@@ -147,18 +149,27 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         tempCan.drawColor(Color.WHITE)
 
         this.draw(tempCan)
-        val s: String = if (GlobalApp.isLogged()) {
-            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/FYP/Public/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
+        val s = if (GlobalApp.isLogged()) {
+            context.getExternalFilesDir("")?.toString() + "/${GlobalApp.getLogged()}"
         } else {
-            Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM).toString() + "/FYP/FYPDrawing_${Calendar.getInstance().time}.png"
+            context.getExternalFilesDir("")?.toString() + "/Public"
         }
 
-        val writeTo = File(s)
+
+        val writeTo = File(s, "FYPDrawing_${Calendar.getInstance().time}.png")
+
+
+        if (!writeTo.parentFile.exists())
+            writeTo.parentFile.mkdirs()
+
+        writeTo.createNewFile()
+
 
         try {
             bitM.compress(Bitmap.CompressFormat.PNG, 100, FileOutputStream(writeTo))
             Toast.makeText(context, "Image Saved to $s", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
     }
@@ -170,6 +181,18 @@ class DrawingActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                GlobalApp.CAM_REQ
+            )
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawing)
 
@@ -212,7 +235,6 @@ class DrawingActivity : AppCompatActivity() {
 
         saveButt.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).saveCanvas()
-            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
      }

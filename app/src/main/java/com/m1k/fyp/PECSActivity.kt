@@ -51,8 +51,7 @@ class PECSActivity : AppCompatActivity() {
     //https://medium.com/@elye.project/right-way-of-setting-margin-on-recycler-views-cell-319da259b641
 }
 
-class RecyclerAdapter(private val pecsActivity: PECSActivity) :
-    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val pecsActivity: PECSActivity) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var pecs: MutableList<Int> = mutableListOf()
     var food: MutableList<Int> = mutableListOf()
     var things: MutableList<Int> = mutableListOf()

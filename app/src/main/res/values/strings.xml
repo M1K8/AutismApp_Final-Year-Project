@@ -15,4 +15,5 @@
 
     <string name="title_activity_draw">DrawActivity</string>
     <string name="title_activity_drawing">DrawingActivity</string>
+    <string name="title_activity_file_explorer">FileExplorer</string>
 </resources>

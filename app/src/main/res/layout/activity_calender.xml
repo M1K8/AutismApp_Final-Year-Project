@@ -94,10 +94,12 @@
                         android:background="#000000"
                         android:layout_width="0dp"
                         android:layout_weight="1.55"
+                        android:layout_height="match_parent"
                         android:textColor="#ffffff"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true">
+
                         <EditText
                             android:imeOptions="actionDone"
                             android:id="@+id/edit1"
@@ -105,7 +107,7 @@
                             android:layout_height="match_parent"
                             android:background="#000000"
                             android:textColor="#ffffff"
-                            android:textSize="12sp"/>
+                            android:textSize="16sp" />
                     </android.support.v7.widget.CardView>
                     <View
                     android:layout_width="0dp"
@@ -128,7 +130,8 @@
                         android:layout_width="0dp"
                         android:layout_weight="1.15"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        android:layout_height="match_parent"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true"
                         android:background="#222222"
                         android:textColor="#dddddd">
@@ -139,7 +142,7 @@
                             android:layout_height="match_parent"
                             android:background="#222222"
                             android:textColor="#dddddd"
-                            android:textSize="12sp"/>
+                            android:textSize="16sp" />
                     </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="0dp"
@@ -164,8 +167,9 @@
                         android:layout_weight="1.15"
                         android:background="#222222"
                         android:textColor="#dddddd"
+                        android:layout_height="match_parent"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true">
                         <EditText
                             android:id="@+id/edit3"
@@ -174,7 +178,7 @@
                             android:background="#a41671"
                             android:imeOptions="actionDone"
                             android:textColor="#000000"
-                            android:textSize="12sp"/>
+                            android:textSize="16sp" />
                     </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="0dp"
@@ -199,7 +203,8 @@
                         android:background="#222222"
                         android:textColor="#dddddd"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        android:layout_height="match_parent"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true">
                         <EditText
                             android:id="@+id/edit4"
@@ -208,7 +213,7 @@
                             android:background="#2049da"
                             android:imeOptions="actionDone"
                             android:textColor="#ffffff"
-                            android:textSize="12sp"/>
+                            android:textSize="16sp" />
                     </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="0dp"
@@ -233,8 +238,9 @@
                         android:layout_weight="1"
                         android:background="#222222"
                         android:textColor="#dddddd"
+                        android:layout_height="match_parent"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true">
                         <EditText
                             android:id="@+id/edit5"
@@ -243,7 +249,7 @@
                             android:background="#38362d"
                             android:imeOptions="actionDone"
                             android:textColor="#ffffff"
-                            android:textSize="12sp"/>
+                            android:textSize="16sp" />
                     </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="0dp"
@@ -265,9 +271,10 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:background="#222222"
+                        android:layout_height="match_parent"
                         android:textColor="#dddddd"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true">
                         <EditText
                             android:id="@+id/edit6"
@@ -276,7 +283,7 @@
                             android:background="#59a7d7"
                             android:imeOptions="actionDone"
                             android:textColor="#000000"
-                            android:textSize="12sp"/>
+                            android:textSize="16sp" />
                     </android.support.v7.widget.CardView>
                     <View
                         android:layout_width="0dp"
@@ -298,10 +305,11 @@
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:layout_width="0dp"
                         android:layout_weight="1.1"
+                        android:layout_height="match_parent"
                         android:background="#222222"
                         android:textColor="#dddddd"
                         card_view:cardBackgroundColor="#000000"
-                        card_view:cardCornerRadius="3dp"
+                        card_view:cardCornerRadius="15dp"
                         card_view:cardUseCompatPadding="true">
                         <EditText
                             android:id="@+id/edit7"
@@ -310,7 +318,7 @@
                             android:background="#c35210"
                             android:imeOptions="actionDone"
                             android:textColor="#000000"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             />
                     </android.support.v7.widget.CardView>
 

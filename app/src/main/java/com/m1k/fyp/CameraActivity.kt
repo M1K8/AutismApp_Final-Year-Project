@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Environment
+import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -70,19 +70,22 @@ class CameraActivity : AppCompatActivity() {
 
         inner class SaveAsync : AsyncTask<ByteArray, Int, Unit>() {
             override fun doInBackground(vararg params: ByteArray) {
-                val picFile: String = if (GlobalApp.isLogged()) {
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYP/${GlobalApp.getLogged()}/FYPDrawing_${Calendar.getInstance().time}.png"
+                val picFile = this@CameraActivity.getExternalFilesDir("")
+
+
+                val fileStr = if (GlobalApp.isLogged()) {
+                    picFile?.toString() + "/${GlobalApp.getLogged()}/Picture_${Calendar.getInstance().time}.png"
                 } else {
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/FYP//Public/FYPDrawing_${Calendar.getInstance().time}.png"
+                    picFile?.toString() + "/Public/Picture_${Calendar.getInstance().time}.png"
                 }
 
                 try {
-                    val fos = FileOutputStream(picFile)
+                    val fos = FileOutputStream(fileStr)
                     fos.write(params[0])
                     fos.close()
 
                 } catch (e: Exception) {
-                    //Looper.prepare()
+                    Looper.prepare()
                     Toast.makeText(this@CameraActivity, e.message, Toast.LENGTH_LONG).show()
 
                 }
@@ -91,7 +94,9 @@ class CameraActivity : AppCompatActivity() {
 
         override fun onPictureTaken(data: ByteArray, camera: Camera) {
             try {
-                SaveAsync().execute(data)
+                val e = SaveAsync().execute(data)
+
+                e.get()
                 Toast.makeText(this@CameraActivity, "Picture Taken", Toast.LENGTH_LONG).show()
 
                 mCamera?.startPreview()
