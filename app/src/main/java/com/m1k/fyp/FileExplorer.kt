@@ -68,11 +68,13 @@ class FileExplorer : AppCompatActivity() {
             }
 
             val fp = File(path).listFiles()
-            if (fp.isNotEmpty()) {
-                allFiles = fp.toMutableList()
+            if (fp != null) {
+                if (fp.isNotEmpty()) {
+                    allFiles = fp.toMutableList()
 
-                for (f in allFiles) {
-                    allImages.add(BitmapFactory.decodeFile(f.toString()))
+                    for (f in allFiles) {
+                        allImages.add(BitmapFactory.decodeFile(f.toString()))
+                    }
                 }
             }
         }

@@ -33,16 +33,24 @@ class LoginActivity : AppCompatActivity() {
         }
 
         email_sign_in_button.setOnClickListener {
-            val newUser =
-                User(null, new_user.text.toString(), false, false, false, false, "test.png", Calender(), Week())
+            if (new_user.text.toString().isBlank() || new_user.text.toString().isEmpty()) {
+                Toast.makeText(this, "Please enter a non empty name", Toast.LENGTH_LONG).show()
+                new_user.text.clear()
 
-            val c = CreateNewUser(this).execute(newUser)
+            } else {
 
-            c.get()
-            Toast.makeText(this, "User ${newUser.uName}  Created!", Toast.LENGTH_SHORT).show()
-            GlobalApp.setLogged(newUser.uName)
-            setResult(Activity.RESULT_OK)
-            finish()
+
+                val newUser =
+                    User(null, new_user.text.toString(), false, false, false, false, "test.png", Calender(), Week())
+
+                val c = CreateNewUser(this).execute(newUser)
+
+                c.get()
+                Toast.makeText(this, "User ${newUser.uName}  Created!", Toast.LENGTH_SHORT).show()
+                GlobalApp.setLogged(newUser.uName)
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
         }
         val c = CheckSize(this).execute()
 
