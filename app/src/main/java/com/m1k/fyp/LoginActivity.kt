@@ -13,17 +13,45 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
+import java.io.File
 
 private var layoutManager: RecyclerView.LayoutManager? = null
 private var adapter: RecyclerView.Adapter<LoginActivity.Companion.RecyclerAdapter.ViewHolder>? = null
 
 
 class LoginActivity : AppCompatActivity() {
+    fun deleteRecursive(fileOrDirectory: File) {
+
+        if (fileOrDirectory.isDirectory) {
+            for (child in fileOrDirectory.listFiles()) {
+                deleteRecursive(child)
+            }
+        }
+
+        if (GlobalApp.isLogged())
+            GlobalApp.logOut()
+    }
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         delButt.setOnClickListener {
+
+            val uProm = GetAllUsers(this).execute()
+            val u = uProm.get()
+
+            for (user in u) {
+                val userPath = "${this.getExternalFilesDir("")}/${user.uName}/"
+
+                deleteRecursive(File(userPath))
+            }
+
+
             val d = DropAll(this).execute()
 
             d.get()
