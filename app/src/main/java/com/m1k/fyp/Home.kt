@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.AsyncTask
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.support.v7.app.AppCompatActivity
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -11,10 +12,22 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.content_home.*
+import java.util.*
 
-class Home : AppCompatActivity() {
+class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var loggedIn = GlobalApp.getLogged()
 
+    private var tts: TextToSpeech? = null
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // set UK English as language for tts
+            tts?.language = Locale.UK
+        }
+    }
+
+    fun t2s(s: String) {
+        tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
 
     private fun init() {
         loggedIn = GlobalApp.getLogged()
@@ -27,10 +40,12 @@ class Home : AppCompatActivity() {
                 GlobalApp.vib = s.general_vibrate
                 GlobalApp.t2s = s.txt2Speech
                 GlobalApp.c2 = s.calWeekly
+                GlobalApp.t2s = s.txt2Speech
             }
 
             findViewById<TextView>(R.id.welcomeText).text = "Welcome, $loggedIn !"
             findViewById<TextView>(R.id.welcomeText).invalidate()
+
 
         } else {
             findViewById<Button>(R.id.logOutButt).visibility = GONE
@@ -51,6 +66,73 @@ class Home : AppCompatActivity() {
                 init()
             }
         }
+    }
+
+    override fun onResume() {
+        if (GlobalApp.t2s) {
+            if (tts == null)
+                tts = TextToSpeech(this, this)
+
+            loginButton.setOnLongClickListener {
+                t2s("Login")
+                true
+            }
+
+            settingsButton.setOnLongClickListener {
+                t2s("Settings")
+                true
+            }
+
+            drawButton.setOnLongClickListener {
+                t2s("Draw")
+                true
+            }
+
+            camButton.setOnLongClickListener {
+                t2s("Camera")
+                true
+            }
+
+            pecsButton.setOnLongClickListener {
+                t2s("Pecs")
+                true
+            }
+
+            calButton.setOnLongClickListener {
+                t2s("Calender")
+                true
+            }
+
+            strgButton.setOnLongClickListener {
+                t2s("Saved Pictures")
+                true
+            }
+        } else {
+            loginButton.setOnLongClickListener { false }
+            settingsButton.setOnLongClickListener { false }
+            drawButton.setOnLongClickListener { false }
+            camButton.setOnLongClickListener { false }
+            pecsButton.setOnLongClickListener { false }
+            calButton.setOnLongClickListener { false }
+            strgButton.setOnLongClickListener { false }
+
+            if (tts != null) {
+                tts?.stop()
+                tts?.shutdown()
+            }
+        }
+
+
+        super.onResume()
+    }
+
+
+    override fun onDestroy() {
+        if (tts != null) {
+            tts?.stop()
+            tts?.shutdown()
+        }
+        super.onDestroy()
     }
    override fun onCreate(savedInstanceState: Bundle?) {
 

@@ -31,6 +31,8 @@ class SettingsActivity : AppCompatActivity() {
         dv_s.isChecked = _draw_vib
         val v_s = findViewById<Switch>(R.id.vibGenSwitch)
         v_s.isChecked = _vib
+        val t2s_s = findViewById<Switch>(R.id.enableTxt2SpeechSwitch)
+        t2s_s.isChecked = _t2s
         val c2_s = findViewById<Switch>(R.id.calWeeklySwitch)
         c2_s.isChecked = _c2
 
@@ -50,6 +52,15 @@ class SettingsActivity : AppCompatActivity() {
                 WriteGVToDB(loggedIn,_vib).execute()
             }
             GlobalApp.vib = isChecked
+        }
+
+
+        t2s_s.setOnCheckedChangeListener { _, isChecked ->
+            _t2s = isChecked
+            if (loggedIn != null) {
+                WriteT2SToDB(loggedIn, _t2s).execute()
+            }
+            GlobalApp.t2s = isChecked
         }
 
 
