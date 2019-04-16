@@ -107,6 +107,13 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
                 t2s("Saved Pictures")
                 true
             }
+
+            if (GlobalApp.isLogged()) {
+                welcomeText.setOnLongClickListener {
+                    t2s(welcomeText.text.toString())
+                    true
+                }
+            }
         } else {
             loginButton.setOnLongClickListener { false }
             settingsButton.setOnLongClickListener { false }
@@ -115,6 +122,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
             pecsButton.setOnLongClickListener { false }
             calButton.setOnLongClickListener { false }
             strgButton.setOnLongClickListener { false }
+            welcomeText.setOnLongClickListener { false }
 
             if (tts != null) {
                 tts?.stop()
