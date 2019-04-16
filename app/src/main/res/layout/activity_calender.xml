@@ -45,9 +45,9 @@
 
                 <TextView
                     android:id="@+id/title2"
-                    android:background="#222222"
+                    android:background="#11eeaa"
                     android:text="Tue."
-                    android:textColor="#dddddd" />
+                    android:textColor="#000000" />
 
                 <View
                     android:layout_width="0dp"
@@ -78,7 +78,7 @@
 
                 <TextView
                     android:id="@+id/title5"
-                    android:background="#38362d"
+                    android:background="#880000"
                     android:text="Fri."
                     android:textColor="#ffffff" />
 
@@ -171,9 +171,9 @@
                         android:id="@+id/edit2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#222222"
+                        android:background="#11eeaa"
                         android:imeOptions="actionDone"
-                        android:textColor="#dddddd"
+                        android:textColor="#000000"
                         android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
@@ -288,7 +288,7 @@
                         android:id="@+id/edit5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#38362d"
+                        android:background="#880000"
                         android:imeOptions="actionDone"
                         android:textColor="#ffffff"
                         android:padding="2dp"
