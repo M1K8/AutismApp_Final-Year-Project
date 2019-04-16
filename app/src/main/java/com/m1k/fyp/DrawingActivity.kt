@@ -84,7 +84,10 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private fun actionMove(x: Float, y: Float) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
-        vibrate(50)
+
+        if (GlobalApp.draw_vib)
+            vibrate(50)
+
         mCurX = x
         mCurY = y
 

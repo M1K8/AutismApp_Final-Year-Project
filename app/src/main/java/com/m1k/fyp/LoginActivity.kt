@@ -20,7 +20,7 @@ private var adapter: RecyclerView.Adapter<LoginActivity.Companion.RecyclerAdapte
 
 
 class LoginActivity : AppCompatActivity() {
-    fun deleteRecursive(fileOrDirectory: File) {
+    private fun deleteRecursive(fileOrDirectory: File) {
 
         if (fileOrDirectory.isDirectory) {
             for (child in fileOrDirectory.listFiles()) {

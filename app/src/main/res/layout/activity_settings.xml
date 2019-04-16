@@ -9,60 +9,60 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="594dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
         <TableLayout
+            android:id="@+id/settingsTable"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/settingsTable">
+            android:layout_height="match_parent">
 
             <TableRow>
+
                 <View
                     android:layout_width="0dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
 
                 <TextView
-                android:id="@+id/settingHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"
-                android:text="Settings"
-                android:textStyle="bold"
-                android:textSize="60sp"/>
+                    android:id="@+id/settingHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Settings"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="60sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
 
             </TableRow>
 
             <TableRow>
+
                 <View
                     android:layout_width="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_height="10dp"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
             </TableRow>
 
 
             <TableRow>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
                     android:text="Vibrate"
-                    android:textSize="40sp"/>
+                    android:textColor="#000"
+                    android:textSize="40sp" />
             </TableRow>
 
             <TableRow>
@@ -72,93 +72,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="Drawing App Only"
                     android:switchPadding="20dp"
-                    android:textSize="25sp"
-                    />
+                    android:text="Drawing App Only"
+                    android:textSize="25sp" />
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_weight="1"
                     android:layout_height="25dp"
+                    android:layout_gravity="bottom|center"
                     android:layout_marginBottom="20dp"
-                    />
+                    android:layout_weight="1" />
             </TableRow>
 
 
             <TableRow>
+
                 <Switch
                     android:id="@+id/vibGenSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textSize="25sp"
-                    android:text="Every Tap" />
+                    android:text="Every Tap"
+                    android:textSize="25sp" />
             </TableRow>
 
             <TableRow>
+
                 <View
                     android:layout_width="0dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_weight="1"
                     android:layout_height="35dp"
-                    />
-            </TableRow>
-
-
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text=" Text To Speech"
-                    android:textSize="40sp"/>
-            </TableRow>
-
-            <TableRow>
-
-                <Switch
-                    android:id="@+id/enableTxt2SpeechSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="Enable"
-                    android:switchPadding="20dp"
-                    android:textSize="25sp"
-                    />
-
-                <View
-                    android:layout_width="0dp"
                     android:layout_gravity="bottom|center"
-                    android:layout_weight="1"
-                    android:layout_height="25dp"
-                    android:layout_marginBottom="35dp"
-                    />
+                    android:layout_weight="1" />
             </TableRow>
 
+
             <TableRow>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="Calender"
                     android:layout_marginBottom="20dp"
+                    android:text="Calender"
                     android:textColor="#000"
-                    android:textSize="40sp"/>
+                    android:textSize="40sp" />
             </TableRow>
+
             <TableRow>
+
                 <Switch
                     android:id="@+id/calWeeklySwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textSize="25sp"
-                    android:text="Week Long View" />
+                    android:text="Week Long View"
+                    android:textSize="25sp" />
             </TableRow>
 
         </TableLayout>

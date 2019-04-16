@@ -5,10 +5,12 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.CardView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.SparseArray
 import android.widget.EditText
+import android.widget.TableLayout
 import android.widget.TextView
 import java.util.*
 
@@ -96,148 +98,150 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             wProm.get()
         }
 
-            if (GlobalApp.c2) {
-                var txt = findViewById<EditText>(R.id.edit1)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.monday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-                txt = findViewById(R.id.edit2)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.tuesday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
+        reInit()
 
-                txt = findViewById(R.id.edit3)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.wednesday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
+    }
 
-                txt = findViewById(R.id.edit4)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.thursday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
+    private fun reInit() {
+        if (GlobalApp.c2) {
+            var txt = findViewById<EditText>(R.id.edit1)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.monday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
                 }
-
-                txt = findViewById(R.id.edit5)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.friday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit6)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.saturday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit7)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.sunday)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-            } else {
-                var txt = findViewById<EditText>(R.id.edit1)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.wakeUp)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit2)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.morning)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit3)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.lunchTime)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit4)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.afternoon)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit5)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.dinnerTime)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-
-                txt = findViewById(R.id.edit6)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.evening)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
-                }
-                txt = findViewById(R.id.edit7)
-                txt.apply {
-                    text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.bedTime)
-                    maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
-                    setOnLongClickListener {
-                        t2s(txt.text.toString())
-                        true
-                    }
+            }
+            txt = findViewById(R.id.edit2)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.tuesday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
                 }
             }
 
+            txt = findViewById(R.id.edit3)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.wednesday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
 
+            txt = findViewById(R.id.edit4)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.thursday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
 
+            txt = findViewById(R.id.edit5)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.friday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit6)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.saturday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit7)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.sunday)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+        } else {
+            var txt = findViewById<EditText>(R.id.edit1)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.wakeUp)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit2)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.morning)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit3)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.lunchTime)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit4)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.afternoon)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit5)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.dinnerTime)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+
+            txt = findViewById(R.id.edit6)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.evening)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+            txt = findViewById(R.id.edit7)
+            txt.apply {
+                text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.bedTime)
+                maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
+                setOnLongClickListener {
+                    t2s(txt.text.toString())
+                    true
+                }
+            }
+        }
     }
 
     override fun onStop() {
@@ -256,37 +260,48 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
     }
 
+
+    override fun onDestroy() {
+        if (tts != null) {
+
+            tts?.stop()
+            tts?.shutdown()
+        }
+        super.onDestroy()
+    }
+
     private fun initBoxChange() {
 
-        findViewById<EditText>(R.id.edit1).addTextChangedListener(Watch(R.id.edit1))
+        findViewById<EditText>(R.id.edit1).addTextChangedListener(Watch(R.id.edit1, R.id.edit1C))
         weekCalPair.append(R.id.edit1,Pair(::updateCal1, ::updateWeek1))
 
-        findViewById<EditText>(R.id.edit2).addTextChangedListener(Watch(R.id.edit2))
+        findViewById<EditText>(R.id.edit2).addTextChangedListener(Watch(R.id.edit2, R.id.edit2C))
         weekCalPair.append(R.id.edit2,Pair(::updateCal2, ::updateWeek2))
 
-        findViewById<EditText>(R.id.edit3).addTextChangedListener(Watch(R.id.edit3))
+        findViewById<EditText>(R.id.edit3).addTextChangedListener(Watch(R.id.edit3, R.id.edit3C))
         weekCalPair.append(R.id.edit3,Pair(::updateCal3, ::updateWeek3))
 
-        findViewById<EditText>(R.id.edit4).addTextChangedListener(Watch(R.id.edit4))
+        findViewById<EditText>(R.id.edit4).addTextChangedListener(Watch(R.id.edit4, R.id.edit4C))
         weekCalPair.append(R.id.edit4,Pair(::updateCal4, ::updateWeek4))
 
-        findViewById<EditText>(R.id.edit5).addTextChangedListener(Watch(R.id.edit5))
+        findViewById<EditText>(R.id.edit5).addTextChangedListener(Watch(R.id.edit5, R.id.edit5C))
         weekCalPair.append(R.id.edit5,Pair(::updateCal5, ::updateWeek5))
 
-        findViewById<EditText>(R.id.edit6).addTextChangedListener(Watch(R.id.edit6))
+        findViewById<EditText>(R.id.edit6).addTextChangedListener(Watch(R.id.edit6, R.id.edit6C))
         weekCalPair.append(R.id.edit6,Pair(::updateCal6, ::updateWeek6))
 
-        findViewById<EditText>(R.id.edit7).addTextChangedListener(Watch(R.id.edit7))
+        findViewById<EditText>(R.id.edit7).addTextChangedListener(Watch(R.id.edit7, R.id.edit7C))
         weekCalPair.append(R.id.edit7,Pair(::updateCal7, ::updateWeek7))
 
 
     }
-
         fun updateCal1 (s : String) {
             GlobalApp.calSession?.wakeUp = s
+            //reInit()
         }
         fun updateWeek1 (s : String) {
             GlobalApp.weekSession?.monday = s
+            //reInit()
         }
 
         fun updateCal2 (s : String) {
@@ -332,7 +347,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
 
 
-    inner class Watch(val rId : Int) : TextWatcher {
+    inner class Watch(private val rId: Int, private val rCId: Int) : TextWatcher {
 
         override fun afterTextChanged(s: Editable) {
             val pairVal = weekCalPair.get(rId)
@@ -347,6 +362,8 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 t2s(thisT.text.toString())
                 true
             }
+            findViewById<CardView>(rCId).invalidate()
+            findViewById<TableLayout>(R.id.calTable).invalidate()
         }
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
