@@ -11,12 +11,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:id="@+id/tabScroll"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal"
         android:layout_marginEnd="8dp"
+        android:id="@+id/tabScroll"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,9 +28,12 @@
 
             <TableRow android:layout_height="match_parent">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05" />
                 <TextView
                     android:id="@+id/title1"
-                    android:layout_marginStart="5dp"
                     android:background="#000000"
                     android:text="Mon."
                     android:textColor="#ffffff" />
@@ -38,7 +41,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.14" />
 
                 <TextView
                     android:id="@+id/title2"
@@ -49,7 +52,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.14" />
 
                 <TextView
                     android:id="@+id/title3"
@@ -60,7 +63,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.15" />
 
                 <TextView
                     android:id="@+id/title4"
@@ -71,7 +74,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.17" />
 
                 <TextView
                     android:id="@+id/title5"
@@ -82,7 +85,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.18" />
 
                 <TextView
                     android:id="@+id/title6"
@@ -93,14 +96,19 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
+                    android:layout_weight="0.19" />
 
                 <TextView
                     android:id="@+id/title7"
-                    android:layout_marginEnd="20sp"
+
                     android:background="#c35210"
                     android:text="Sun."
                     android:textColor="#000000" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
 
             </TableRow>
 
@@ -113,7 +121,7 @@
                     android:id="@+id/edit1C"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.55"
+                    android:layout_weight="1.65"
                     android:background="#000000"
                     android:textColor="#ffffff"
                     card_view:cardBackgroundColor="#000000"
@@ -126,8 +134,8 @@
                         android:layout_height="wrap_content"
                         android:background="#000000"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#ffffff"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
@@ -146,13 +154,13 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.15" />
+                    android:layout_weight="1" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/edit2C"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.15"
+                    android:layout_weight="1.25"
                     android:background="#222222"
                     android:textColor="#dddddd"
                     card_view:cardBackgroundColor="#000000"
@@ -165,15 +173,15 @@
                         android:layout_height="wrap_content"
                         android:background="#222222"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#dddddd"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="6" />
+                    android:layout_weight="5.8" />
 
 
             </TableRow>
@@ -185,13 +193,13 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.3" />
+                    android:layout_weight="2" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/edit3C"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.15"
+                    android:layout_weight="1.25"
                     android:background="#222222"
                     android:textColor="#dddddd"
                     card_view:cardBackgroundColor="#000000"
@@ -204,8 +212,8 @@
                         android:layout_height="wrap_content"
                         android:background="#a41671"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#000000"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
@@ -224,7 +232,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="3.45" />
+                    android:layout_weight="2.7" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/edit4C"
@@ -243,8 +251,8 @@
                         android:layout_height="wrap_content"
                         android:background="#2049da"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#ffffff"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
@@ -263,7 +271,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4.6" />
+                    android:layout_weight="3.55" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/edit5C"
@@ -282,8 +290,8 @@
                         android:layout_height="wrap_content"
                         android:background="#38362d"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#ffffff"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
@@ -301,7 +309,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5.75" />
+                    android:layout_weight="4.65" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/edit6C"
@@ -320,8 +328,8 @@
                         android:layout_height="wrap_content"
                         android:background="#59a7d7"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#000000"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
@@ -340,7 +348,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.9" />
+                    android:layout_weight="5.8" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/edit7C"
@@ -359,16 +367,14 @@
                         android:layout_height="wrap_content"
                         android:background="#c35210"
                         android:imeOptions="actionDone"
-                        android:padding="2dp"
                         android:textColor="#000000"
+                        android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
 
 
             </TableRow>
-
             <TableRow>
-
                 <View
                     android:layout_width="0dp"
                     android:layout_height="10dp"
