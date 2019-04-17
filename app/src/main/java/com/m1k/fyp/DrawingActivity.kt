@@ -52,7 +52,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         wr.defaultDisplay.getMetrics(d)
 
-        maxY = d.heightPixels - 196
+        maxY = d.heightPixels - 75
 
         mPaint.apply {
             color = colour
@@ -182,6 +182,25 @@ class DrawingActivity : AppCompatActivity() {
 
     private lateinit var sheetBehavior: BottomSheetBehavior<LinearLayout>
 
+    inner class BCall : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(p0: View, p1: Int) {
+            when (p1) {
+                BottomSheetBehavior.STATE_COLLAPSED -> {
+                    findViewById<View>(R.id.shadow).visibility = View.VISIBLE
+                    findViewById<View>(R.id.shadow).alpha = 1f
+                }
+                BottomSheetBehavior.STATE_EXPANDED -> findViewById<View>(R.id.shadow).visibility = View.INVISIBLE
+                BottomSheetBehavior.STATE_HALF_EXPANDED -> findViewById<View>(R.id.shadow).alpha = 0.4f
+            }
+
+        }
+
+        override fun onSlide(p0: View, p1: Float) {
+            findViewById<View>(R.id.shadow).alpha = 0.6f
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -200,6 +219,8 @@ class DrawingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_drawing)
 
         sheetBehavior = BottomSheetBehavior.from<LinearLayout>(draw_swipe_menu)
+
+        sheetBehavior.setBottomSheetCallback(BCall())
 
         button1.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.YELLOW)

@@ -136,6 +136,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
                 viewHolder.user_image.setImageResource(R.drawable.test)
                 viewHolder.user_name.text = users!![i].uName
+                viewHolder.user_name.textSize = 48f
             }
 
             override fun getItemCount(): Int {
