@@ -1,7 +1,7 @@
 package com.m1k.fyp
 
 import android.arch.persistence.room.*
-import android.arch.persistence.room.OnConflictStrategy.REPLACE
+import android.arch.persistence.room.OnConflictStrategy.*
 import android.content.Context
 
 
@@ -107,8 +107,7 @@ class NamePicPair {
 }
 
 @Entity(tableName = "Users")
-data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
-                @ColumnInfo(name="uName")var uName: String,
+data class User(@PrimaryKey(autoGenerate = false) @ColumnInfo(name="uName")var uName: String,
                 @ColumnInfo(name="draw_vibrate")var draw_vibrate: Boolean,
                 @ColumnInfo(name="general_vibrate")var general_vibrate: Boolean,
                 @ColumnInfo(name="txt2Speech")var txt2Speech: Boolean,
@@ -142,8 +141,8 @@ data class User(@PrimaryKey(autoGenerate = true) var id: Long?,
     @Query("SELECT draw_vibrate,general_vibrate, txt2Speech, calWeekly from Users where uName = :name")
     fun getSettingsByName(name : String) : Settings?
 
-    @Insert(onConflict = REPLACE)
-    fun insert(userData: User)
+    @Insert(onConflict = IGNORE)
+    fun insert(userData: User) : Long
 
     @Query("DELETE from Users")
     fun deleteAll()

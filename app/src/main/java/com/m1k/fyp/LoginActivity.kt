@@ -66,24 +66,27 @@ class LoginActivity : AppCompatActivity() {
                 new_user.text.clear()
 
             } else {
-
-
                 val newUser =
-                    User(null, new_user.text.toString(), false, false, false, false, "test.png", Calender(), Week())
+                    User( new_user.text.toString(), false, false, false, false, "test.png", Calender(), Week())
+
 
                 val c = CreateNewUser(this).execute(newUser)
-
-                c.get()
-                Toast.makeText(this, "User ${newUser.uName}  Created!", Toast.LENGTH_SHORT).show()
-                GlobalApp.setLogged(newUser.uName)
-                setResult(Activity.RESULT_OK)
-                finish()
+                if (c.get().compareTo(-1) == 0)
+                {
+                    Toast.makeText(this, "Username exists, please enter a different username!", Toast.LENGTH_SHORT).show()
+                    new_user.text.clear()
+                } else {
+                    Toast.makeText(this, "User ${newUser.uName}  Created!", Toast.LENGTH_SHORT).show()
+                    GlobalApp.setLogged(newUser.uName)
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
             }
         }
-        val c = CheckSize(this).execute()
+        val ch = CheckSize(this).execute()
 
 
-        if (c.get() > 0) {
+        if (ch.get() > 0) {
             layoutManager = LinearLayoutManager(this)
             users_list_view.layoutManager = layoutManager
 
@@ -109,9 +112,9 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        class CreateNewUser(loginActivity: LoginActivity) : AsyncTask<User, Int, Unit>() {
+        class CreateNewUser(loginActivity: LoginActivity) : AsyncTask<User, Int, Long>() {
             private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
-            override fun doInBackground(vararg params: User) {
+            override fun doInBackground(vararg params: User) : Long{
                 return db.insert(params[0])
 
             }
