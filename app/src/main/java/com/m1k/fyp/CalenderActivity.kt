@@ -16,7 +16,10 @@ import java.util.*
 
 class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
+    //define text to speech engine
     private var tts: TextToSpeech? = null
+
+    //set the locale to EN_GB when the textToSpeech engine is initialised
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             // set UK English as language for tts
@@ -24,12 +27,13 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
     }
 
+    //helper method to "speak" a given string
     fun t2s(s: String) {
         tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
 
-
+    //create a data structure the allows for efficient storage of pairs of function ptrs, used in saving text box contents
     //Int = R.id, f1() == weekUpdater, f2() == calender updater
     var weekCalPair : SparseArray<Pair<  (s : String) -> Unit  , (s : String) -> Unit   >> = SparseArray()
 
@@ -38,11 +42,16 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calender)
 
+        //get the current user
         val loggedIn = GlobalApp.getLogged()
 
+        //set all text text change listeners based on settings
         initBoxChange()
+
+        //initialise textToSpeech engine
         tts = TextToSpeech(this, this)
 
+        //set column headers based on calendar settings
         if (GlobalApp.c2) {
             var switch = findViewById<TextView>(R.id.title1)
             switch.text = "Monday"
@@ -87,6 +96,8 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             switch.text = "Bedtime"
 
         }
+
+        //if a user is logged in, popluate the text boxes with their saved strings
         if (loggedIn != null) {
             val cProm = GetCalenderFromDB(loggedIn).execute()
 
@@ -102,6 +113,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     }
 
+    //redraw text boxes based, as boxes need to resixe based on text
     private fun reInit() {
         if (GlobalApp.c2) {
             var txt = findViewById<EditText>(R.id.edit1)
@@ -244,6 +256,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
     }
 
+    //when the Acitivity is stopped, make sure all text fields are written to the database if the user is logged in
     override fun onStop() {
         super.onStop()
         val loggedIn = GlobalApp.getLogged()
@@ -260,7 +273,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
     }
 
-
+    //when the Activity is destoryed, make sure we dont leak the textToSpeech engine
     override fun onDestroy() {
         if (tts != null) {
 
@@ -270,6 +283,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         super.onDestroy()
     }
 
+    //helper method to initialise various text changes listener for all text boxes. Handles both calendar settings.
     private fun initBoxChange() {
 
         findViewById<EditText>(R.id.edit1).addTextChangedListener(Watch(R.id.edit1, R.id.edit1C))
@@ -295,10 +309,12 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
 
     }
-        fun updateCal1 (s : String) {
-            GlobalApp.calSession?.wakeUp = s
-            //reInit()
-        }
+
+    //series of callback methods that update a cached version of the week / calender based on which text box is modified
+    fun updateCal1 (s : String) {
+        GlobalApp.calSession?.wakeUp = s
+        //reInit()
+    }
         fun updateWeek1 (s : String) {
             GlobalApp.weekSession?.monday = s
             //reInit()
@@ -347,8 +363,10 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
 
 
+    // class that handles when a text box i modified
     inner class Watch(private val rId: Int, private val rCId: Int) : TextWatcher {
 
+        //once the text has been modified, find the relevant weekCalPair entry based on the id of the View, and call the needed callback based on calender setting
         override fun afterTextChanged(s: Editable) {
             val pairVal = weekCalPair.get(rId)
             val thisT = findViewById<EditText>(rId)
@@ -362,6 +380,8 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 t2s(thisT.text.toString())
                 true
             }
+
+            //redraw
             findViewById<CardView>(rCId).invalidate()
             findViewById<TableLayout>(R.id.calTable).invalidate()
         }
@@ -371,6 +391,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     }
 
+    //class to asynchronously fetch a calender object from the DB for a given user
     inner class GetCalenderFromDB(val name: String) : AsyncTask<String, Int, Calender>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
         override fun doInBackground(vararg params: String?): Calender {
@@ -382,6 +403,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     }
 
+    //class to asynchronously fetch a week object from the DB for a given user
     inner class GetWeekFromDB(val name: String) : AsyncTask<String, Int, Week>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
         override fun doInBackground(vararg params: String?): Week {
@@ -393,6 +415,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     }
 
+    //class to asynchronously write a calender object to the DB for a given user
     inner class WriteCalToDB(val name: String, private val c: Calender) : AsyncTask<String, Int, Unit>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
 
@@ -417,6 +440,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         }
     }
 
+    //class to asynchronously write a week object to the DB for a given user
     inner class WriteWeekToDB(val name: String, private val w: Week) : AsyncTask<String, Int, Unit>() {
         private val db = UserDataBase.getDatabase(this@CalenderActivity).userDataDao()
 
@@ -439,7 +463,6 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 name
             )
         }
-
 
 
     }

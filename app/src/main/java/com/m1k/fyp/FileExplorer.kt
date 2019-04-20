@@ -15,6 +15,8 @@ import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_file_explorer.*
 import java.io.File
 
+//"red" and "green" for pictures and images, append to path, ez
+
 class FileExplorer : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerAdapterF.ViewHolder>? = null

@@ -84,10 +84,8 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private fun actionMove(x: Float, y: Float) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
-
         if (GlobalApp.draw_vib)
             vibrate(50)
-
         mCurX = x
         mCurY = y
 
@@ -138,7 +136,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     }
 
     @SuppressLint("NewApi")
-    //change intensity based on speed
+    //vibrate on touch
     fun vibrate(i: Int = 1) {
         val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         v.vibrate(
