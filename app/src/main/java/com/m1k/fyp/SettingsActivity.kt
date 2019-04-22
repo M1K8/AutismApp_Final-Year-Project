@@ -3,6 +3,7 @@ package com.m1k.fyp
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Switch
 
 
@@ -15,9 +16,17 @@ class SettingsActivity : AppCompatActivity() {
     private var _t2s = false
     private var _c2 = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        findViewById<View>(R.id.settings).setOnClickListener {
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(25, this.baseContext)
+        }
+
+
 
         val loggedIn = GlobalApp.getLogged()
 

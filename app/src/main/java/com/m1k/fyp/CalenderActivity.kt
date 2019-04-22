@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.SparseArray
+import android.view.View
 import android.widget.EditText
 import android.widget.TableLayout
 import android.widget.TextView
@@ -18,6 +19,16 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     //define text to speech engine
     private var tts: TextToSpeech? = null
+
+    override fun onResume() {
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.calTable).setOnTouchListener { v, event ->
+                GlobalApp.vibrate(20, v.context)
+                super.onTouchEvent(event)
+            }
+        }
+        super.onResume()
+    }
 
     //set the locale to EN_GB when the textToSpeech engine is initialised
     override fun onInit(status: Int) {

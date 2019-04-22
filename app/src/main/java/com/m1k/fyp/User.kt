@@ -1,7 +1,7 @@
 package com.m1k.fyp
 
 import android.arch.persistence.room.*
-import android.arch.persistence.room.OnConflictStrategy.*
+import android.arch.persistence.room.OnConflictStrategy.IGNORE
 import android.content.Context
 
 
@@ -208,7 +208,7 @@ data class User(@PrimaryKey(autoGenerate = false) @ColumnInfo(name="uName")var u
     fun updateUser(userData : User)
 }
 
-@Database(entities = [User::class], version = 3, exportSchema = false)
+@Database(entities = [User::class], version = 4, exportSchema = false)
 abstract class UserDataBase : RoomDatabase() {
 
     abstract fun userDataDao(): UserDBDao

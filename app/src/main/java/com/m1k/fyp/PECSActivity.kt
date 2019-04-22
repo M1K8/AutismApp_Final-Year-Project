@@ -16,15 +16,28 @@ class PECSActivity : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
 
+    override fun onResume() {
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.pecs).setOnTouchListener { v, event ->
+                GlobalApp.vibrate(20, v.context)
+                super.onTouchEvent(event)
+            }
+        }
+        super.onResume()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pecs)
+
 
         layoutManager = GridLayoutManager(this, 2)
         PECSList.layoutManager = layoutManager
 
         adapter = RecyclerAdapter(this)
         PECSList.adapter = adapter
+
+
 
         findViewById<RecyclerView>(R.id.PECSList).addItemDecoration(MarginItemDecoration(70))
 

@@ -15,11 +15,22 @@ import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_file_explorer.*
 import java.io.File
 
-//"red" and "green" for pictures and images, append to path, ez
+//"red" and "green" for pictures and images, append to path
 
 class FileExplorer : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerAdapterF.ViewHolder>? = null
+
+
+    override fun onResume() {
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.fileEx).setOnTouchListener { v, event ->
+                GlobalApp.vibrate(20, v.context)
+                super.onTouchEvent(event)
+            }
+        }
+        super.onResume()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +44,9 @@ class FileExplorer : AppCompatActivity() {
 
         findViewById<RecyclerView>(R.id.ImageList).addItemDecoration(MarginItemDecoration(70))
 
-
     }
 
 
-    //from https://medium.com/@elye.project/right-way-of-setting-margin-on-recycler-views-cell-319da259b641
     inner class MarginItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(
             outRect: Rect, view: View,
@@ -81,7 +90,7 @@ class FileExplorer : AppCompatActivity() {
             }
         }
 
-        override fun onBindViewHolder(p0: RecyclerAdapterF.ViewHolder, p1: Int) {
+        override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
             if (itemCount > 0) {
                 p0.pecsImage.setImageBitmap(allImages[p1])
             }
@@ -92,7 +101,7 @@ class FileExplorer : AppCompatActivity() {
         }
 
         //we can reuse the same code as in PECSActivity, as theyre both displaying images...
-        override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerAdapterF.ViewHolder {
+        override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
             val v = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.pecs_holder, viewGroup, false)
             return ViewHolder(v)

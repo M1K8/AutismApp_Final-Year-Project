@@ -1,6 +1,10 @@
 package com.m1k.fyp
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import android.os.VibrationEffect
+import android.os.Vibrator
 
 object GlobalApp : Application() {
     private var loggedIn: String? = null
@@ -31,6 +35,15 @@ object GlobalApp : Application() {
         c2 = false
         calSession = Calender()
         weekSession = Week()
+    }
+
+    @SuppressLint("NewApi")
+    //vibrate on touch
+    fun vibrate(i: Int = 1, context: Context) {
+        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        v.vibrate(
+            VibrationEffect.createWaveform(longArrayOf(0, 25), intArrayOf(0, i), -1)
+        )
     }
 
 

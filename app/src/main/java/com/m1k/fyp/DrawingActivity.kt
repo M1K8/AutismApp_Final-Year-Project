@@ -1,13 +1,10 @@
 package com.m1k.fyp
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -84,8 +81,8 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private fun actionMove(x: Float, y: Float) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
-        if (GlobalApp.draw_vib)
-            vibrate(50)
+        if (GlobalApp.draw_vib || GlobalApp.vib)
+            GlobalApp.vibrate(50, context)
         mCurX = x
         mCurY = y
 
@@ -135,14 +132,6 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         return true
     }
 
-    @SuppressLint("NewApi")
-    //vibrate on touch
-    fun vibrate(i: Int = 1) {
-        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        v.vibrate(
-            VibrationEffect.createWaveform(longArrayOf(0, 25), intArrayOf(0, i), -1)
-        )
-    }
 
     fun saveCanvas() {
         val bitM = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)

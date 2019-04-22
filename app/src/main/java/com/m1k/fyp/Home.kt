@@ -6,6 +6,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Button
@@ -69,6 +71,19 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onResume() {
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.homePg).setOnTouchListener { v, event ->
+
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        GlobalApp.vibrate(20, v.context)
+                    }
+                }
+
+                super.onTouchEvent(event)
+            }
+        }
+
         if (GlobalApp.t2s) {
             if (tts == null)
                 tts = TextToSpeech(this, this)
@@ -146,6 +161,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
 
        super.onCreate(savedInstanceState)
        setContentView(R.layout.activity_home)
+
 
        init()
 

@@ -33,12 +33,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
+    override fun onResume() {
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.login_form).setOnTouchListener { v, event ->
+                GlobalApp.vibrate(20, v.context)
+                super.onTouchEvent(event)
+            }
+        }
+        super.onResume()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         delButt.setOnClickListener {
 

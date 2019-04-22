@@ -9,6 +9,7 @@ import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -35,8 +36,6 @@ class CameraActivity : AppCompatActivity() {
     }
     private var mCamera: Camera? = null
     private var mPreview: CameraPreview? = null
-
-
     //process request to permissions to access the camera
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
@@ -58,6 +57,7 @@ class CameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         //get permissions to access the camera
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), GlobalApp.CAM_REQ)
@@ -65,7 +65,20 @@ class CameraActivity : AppCompatActivity() {
         setContentView(R.layout.activity_camera)
         init()
 
+
     }
+
+
+    override fun onResume() {
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.camera).setOnTouchListener { v, event ->
+                GlobalApp.vibrate(20, v.context)
+                super.onTouchEvent(event)
+            }
+        }
+        super.onResume()
+    }
+
 
     //make sure app restart is handled in regard to cameras
     override fun onRestart() {
