@@ -12,12 +12,21 @@
 
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1" />
     <Button
         android:id="@+id/button_capture"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="bottom|left"
-        android:text="Capture" />
+        android:alpha="0.5"
+        android:text="Capture"
+        android:textSize="24sp" />
 
     <View
         android:layout_width="0dp"
@@ -26,11 +35,19 @@
 
     <Button
         android:id="@+id/button_swap"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="bottom|right"
         android:text="Swap"
+        android:alpha="0.5"
+        android:textSize="24sp"
         />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
 

@@ -45,7 +45,7 @@
 
                 <TextView
                     android:id="@+id/title2"
-                    android:background="#11eeaa"
+                    android:background="#88eeaa"
                     android:text="Tue."
                     android:textColor="#000000" />
 
@@ -91,7 +91,7 @@
                     android:id="@+id/title6"
                     android:background="#59a7d7"
                     android:text="Sat."
-                    android:textColor="#000000" />
+                    android:textColor="#ffffff" />
 
                 <View
                     android:layout_width="0dp"
@@ -103,7 +103,7 @@
 
                     android:background="#c35210"
                     android:text="Sun."
-                    android:textColor="#000000" />
+                    android:textColor="#ffffff" />
 
                 <View
                     android:layout_width="0dp"
@@ -171,7 +171,7 @@
                         android:id="@+id/edit2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#11eeaa"
+                        android:background="#88eeaa"
                         android:imeOptions="actionDone"
                         android:textColor="#000000"
                         android:padding="2dp"
@@ -328,7 +328,7 @@
                         android:layout_height="wrap_content"
                         android:background="#59a7d7"
                         android:imeOptions="actionDone"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
@@ -367,7 +367,7 @@
                         android:layout_height="wrap_content"
                         android:background="#c35210"
                         android:imeOptions="actionDone"
-                        android:textColor="#000000"
+                        android:textColor="#ffffff"
                         android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
