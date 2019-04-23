@@ -1,7 +1,6 @@
 package com.m1k.fyp
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.AsyncTask
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -19,6 +18,7 @@ import java.util.*
 class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var loggedIn = GlobalApp.getLogged()
 
+    //initialise text to speech engine
     private var tts: TextToSpeech? = null
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
@@ -27,11 +27,13 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    //helper method for t2s
     fun t2s(s: String) {
         tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
-    private fun init() {
+    private fun initVals() {
+        //redraw based on login condition - show logout button only when a user is logged in
         loggedIn = GlobalApp.getLogged()
         if (loggedIn != null) {
             val settProm = GetSettingsFromDB(loggedIn!!).execute()
@@ -57,6 +59,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    //handle the logout press to redraw activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -65,11 +68,12 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
                 this.findViewById<Button>(R.id.logOutButt).visibility = VISIBLE
                 this.findViewById<Button>(R.id.logOutButt).invalidate()
 
-                init()
+                initVals()
             }
         }
     }
 
+    //vibrate on every tap if enabled
     override fun onResume() {
         if (GlobalApp.vib) {
             findViewById<View>(R.id.homePg).setOnTouchListener { v, event ->
@@ -84,6 +88,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
 
+        //enable t2s on hold if enabled
         if (GlobalApp.t2s) {
             if (tts == null)
                 tts = TextToSpeech(this, this)
@@ -130,6 +135,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
                 }
             }
         } else {
+            //disable t2s is disabled
             loginButton.setOnLongClickListener { false }
             settingsButton.setOnLongClickListener { false }
             drawButton.setOnLongClickListener { false }
@@ -150,6 +156,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
 
+    //clean up t2s engine to prevent leak
     override fun onDestroy() {
         if (tts != null) {
             tts?.stop()
@@ -163,7 +170,9 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
        setContentView(R.layout.activity_home)
 
 
-       init()
+       initVals()
+
+       //link the applets
 
        loginButton.setOnClickListener {
            val intent = Intent(this, LoginActivity::class.java)
@@ -203,9 +212,8 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
            Toast.makeText(this, "User ${GlobalApp.getLogged()} logged out", Toast.LENGTH_SHORT).show()
            GlobalApp.logOut()
 
-           init()
+           initVals()
        }
-
 
        strgButton.setOnClickListener {
            val intent = Intent(this, FileExplorer::class.java)
@@ -215,19 +223,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
    }
 
 
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-
-        if (newConfig?.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show()
-            setContentView(R.layout.content_home)
-        } else if (newConfig?.orientation == Configuration.ORIENTATION_PORTRAIT){
-            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
+    //helper class to access db
     inner class GetSettingsFromDB(val name: String) : AsyncTask<String, Int, Settings?>() {
         private val db = UserDataBase.getDatabase(this@Home).userDataDao()
         override fun doInBackground(vararg params: String?): Settings? {

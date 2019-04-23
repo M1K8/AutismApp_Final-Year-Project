@@ -22,6 +22,7 @@ class FileExplorer : AppCompatActivity() {
     private var adapter: RecyclerView.Adapter<RecyclerAdapterF.ViewHolder>? = null
 
 
+    //vibrate on every touch if enabled
     override fun onResume() {
         if (GlobalApp.vib) {
             findViewById<View>(R.id.fileEx).setOnTouchListener { v, event ->
@@ -42,6 +43,7 @@ class FileExplorer : AppCompatActivity() {
         adapter = RecyclerAdapterF(this)
         ImageList.adapter = adapter
 
+        //create margins to prettify list
         findViewById<RecyclerView>(R.id.ImageList).addItemDecoration(MarginItemDecoration(70))
 
     }
@@ -67,11 +69,13 @@ class FileExplorer : AppCompatActivity() {
     inner class RecyclerAdapterF(private val fileExplorer: FileExplorer) :
         RecyclerView.Adapter<RecyclerAdapterF.ViewHolder>() {
 
+        //define our lists
         private var allFiles: MutableList<File> = mutableListOf()
         private var allImages: MutableList<Bitmap> = mutableListOf()
         private var path = this@FileExplorer.getExternalFilesDir("")?.toString()
 
         init {
+            //define file path based on user logged in condition
             path += if (GlobalApp.isLogged()) {
                 "/${GlobalApp.getLogged()}"
             } else {
@@ -111,6 +115,7 @@ class FileExplorer : AppCompatActivity() {
             var pecsImage: ImageView = itemView.findViewById(R.id.pecs_image)
 
             init {
+                //enlarge image on tap
                 itemView.setOnClickListener {
                     val im = ImageView(itemView.context)
                     im.setImageBitmap(allImages[adapterPosition])

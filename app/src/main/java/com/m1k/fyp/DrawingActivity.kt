@@ -25,6 +25,8 @@ import java.util.*
 
 //from https://android.jlelse.eu/a-guide-to-drawing-in-android-631237ab6e28
 class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+
+    //initialise variables
     private var mPaint = Paint()
     private var mPath = Path()
     private var paths: MutableList<Path> = mutableListOf()
@@ -39,10 +41,12 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var maxY = 9999
 
 
+    //used to change colour
     fun setColour(c: Int) {
         colour = c
     }
 
+    //set the dead zone  at the bottom of the screen based on device resolution
     init {
         val wr = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val d = DisplayMetrics()
@@ -61,9 +65,11 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         }
     }
 
+    //define behaviour of the "pen"
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        //make sure all pre-existing paths are kept when drawing new line
         for (p in paths) {
             mPaint.color = colorsMap[p]!!
             canvas.drawPath(p, mPaint)
@@ -81,6 +87,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private fun actionMove(x: Float, y: Float) {
         mPath.quadTo(mCurX, mCurY, (x + mCurX) / 2, (y + mCurY) / 2)
 
+        //vibrate if enabled in settings
         if (GlobalApp.draw_vib || GlobalApp.vib)
             GlobalApp.vibrate(50, context)
         mCurX = x
@@ -133,6 +140,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     }
 
 
+    //save the image in the relevant folder
     fun saveCanvas() {
         val bitM = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888)
         val tempCan = Canvas(bitM)
@@ -167,8 +175,10 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
 class DrawingActivity : AppCompatActivity() {
 
+    //define our colour menu
     private lateinit var sheetBehavior: BottomSheetBehavior<LinearLayout>
 
+    //add fade animation when colour menu is dragged up
     inner class BCall : BottomSheetBehavior.BottomSheetCallback() {
         override fun onStateChanged(p0: View, p1: Int) {
             when (p1) {
@@ -191,6 +201,7 @@ class DrawingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        //get file permissions
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -209,6 +220,7 @@ class DrawingActivity : AppCompatActivity() {
 
         sheetBehavior.setBottomSheetCallback(BCall())
 
+        //link all the colour buttons
         button1.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.YELLOW)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED

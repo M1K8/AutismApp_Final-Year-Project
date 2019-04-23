@@ -7,6 +7,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 
 object GlobalApp : Application() {
+    //"cache" variables for DB
     private var loggedIn: String? = null
     const val CAM_REQ = 0
     var draw_vib = false
@@ -46,7 +47,7 @@ object GlobalApp : Application() {
         )
     }
 
-
+    // "cache" variables for Calendar
     var calSession: Calender? = Calender()
     var weekSession: Week? = Week()
 }
