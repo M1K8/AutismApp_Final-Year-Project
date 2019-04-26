@@ -43,7 +43,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
                 GlobalApp.draw_vib = s.draw_vibrate
                 GlobalApp.vib = s.general_vibrate
                 GlobalApp.t2s = s.txt2Speech
-                GlobalApp.c2 = s.calWeekly
+                GlobalApp.calSw = s.calWeekly
                 GlobalApp.t2s = s.txt2Speech
             }
 

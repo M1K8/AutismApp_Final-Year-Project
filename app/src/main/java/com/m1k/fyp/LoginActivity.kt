@@ -1,6 +1,8 @@
 package com.m1k.fyp
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -41,6 +43,11 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         super.onResume()
+
+        if (GlobalApp.isLogged())
+            delButt.visibility = View.GONE
+        else
+            delButt.visibility = View.VISIBLE
     }
 
 
@@ -48,25 +55,45 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        val alertCL = DialogInterface.OnClickListener { dialog, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    val delU = GlobalApp.getLogged()
+                    val uProm = GetUser(this).execute(GlobalApp.getLogged())
+                    val u = uProm.get()
+
+                    if (u != null) {
+                        val userPath = "${this.getExternalFilesDir("")}/$delU/"
+
+                        deleteRecursive(File(userPath))
+                    }
+
+                    val d = Drop(this).execute(delU)
+
+                    d.get()
+
+                    GlobalApp.logOut()
+                    Toast.makeText(this, "User $delU Deleted", Toast.LENGTH_SHORT).show()
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+                else -> {
+                    dialog.dismiss()
+                }
+            }
+        }
 
         delButt.setOnClickListener {
+            val delU = GlobalApp.getLogged()
+            val alertD = AlertDialog.Builder(this.applicationContext)
 
-            val uProm = GetAllUsers(this).execute()
-            val u = uProm.get()
-
-            for (user in u) {
-                val userPath = "${this.getExternalFilesDir("")}/${user.uName}/"
-
-                deleteRecursive(File(userPath))
+            alertD.setMessage("Deleting Account $delU. This will also delete all saved images. Are you sure?").apply {
+                setPositiveButton("Yes", alertCL)
+                setNegativeButton("No", alertCL)
+                show()
             }
 
 
-            val d = DropAll(this).execute()
-
-            d.get()
-            Toast.makeText(this, "All Users Dropped", Toast.LENGTH_SHORT).show()
-            setResult(Activity.RESULT_OK)
-            finish()
         }
 
         email_sign_in_button.setOnClickListener {
@@ -106,6 +133,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     companion object {
+
         class GetAllUsers(loginActivity: LoginActivity) : AsyncTask<Void, Int, List<User>>() {
             private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
             override fun doInBackground(vararg params: Void?): List<User> {
@@ -113,10 +141,17 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        class DropAll(loginActivity: LoginActivity) : AsyncTask<Void, Int, Unit>() {
+        class GetUser(loginActivity: LoginActivity) : AsyncTask<String, Int, User>() {
             private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
-            override fun doInBackground(vararg params: Void?) {
-                return db.deleteAll()
+            override fun doInBackground(vararg params: String): User? {
+                return db.getByUserName(params[0])
+            }
+        }
+
+        class Drop(loginActivity: LoginActivity) : AsyncTask<String, Int, Unit>() {
+            private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
+            override fun doInBackground(vararg params: String) {
+                return db.deleteUser(params[0])
 
             }
         }

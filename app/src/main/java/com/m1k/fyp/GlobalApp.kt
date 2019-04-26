@@ -14,7 +14,7 @@ object GlobalApp : Application() {
     var vib = false
 
     var t2s = false
-    var c2 = false
+    var calSw = false
 
     fun getLogged(): String? {
         return loggedIn
@@ -33,7 +33,7 @@ object GlobalApp : Application() {
         draw_vib = false
         vib = false
         t2s = false
-        c2 = false
+        calSw = false
         calSession = Calender()
         weekSession = Week()
     }

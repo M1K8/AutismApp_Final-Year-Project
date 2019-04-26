@@ -33,7 +33,7 @@ class SettingsActivity : AppCompatActivity() {
         _draw_vib =  GlobalApp.draw_vib
         _vib = GlobalApp.vib
         _t2s = GlobalApp.t2s
-        _c2 = GlobalApp.c2
+        _c2 = GlobalApp.calSw
 
 
         val dv_s = findViewById<Switch>(R.id.vibDrawSwitch)
@@ -78,7 +78,7 @@ class SettingsActivity : AppCompatActivity() {
             if (loggedIn != null) {
                 WriteCalWeeklyToDB(loggedIn,_c2).execute()
             }
-            GlobalApp.c2 = isChecked
+            GlobalApp.calSw = isChecked
         }
 
    }

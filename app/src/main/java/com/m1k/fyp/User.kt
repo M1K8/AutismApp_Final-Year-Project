@@ -147,6 +147,10 @@ data class User(@PrimaryKey(autoGenerate = false) @ColumnInfo(name="uName")var u
     @Query("DELETE from Users")
     fun deleteAll()
 
+
+    @Query("DELETE from Users where uName = :name ")
+    fun deleteUser(name: String)
+
     @Query("UPDATE Users SET draw_vibrate = :d, general_vibrate = :g, txt2Speech = :t, calWeekly = :c, picPath = :p where uName = :name")
     fun updateSettingsByUser(name : String, d : Boolean, g : Boolean, t : Boolean, c : Boolean, p : Boolean)
 

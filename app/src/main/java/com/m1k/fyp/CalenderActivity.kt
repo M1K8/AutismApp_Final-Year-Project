@@ -63,7 +63,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
         tts = TextToSpeech(this, this)
 
         //set column headers based on calendar settings
-        if (GlobalApp.c2) {
+        if (GlobalApp.calSw) {
             var switch = findViewById<TextView>(R.id.title1)
             switch.text = "Monday"
 
@@ -126,7 +126,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
     //redraw text boxes based, as boxes need to resixe based on text
     private fun reInit() {
-        if (GlobalApp.c2) {
+        if (GlobalApp.calSw) {
             var txt = findViewById<EditText>(R.id.edit1)
             txt.apply {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.monday)
@@ -274,7 +274,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
 
         if (loggedIn != null) {
 
-            if (GlobalApp.c2) {
+            if (GlobalApp.calSw) {
                 val e = WriteWeekToDB(loggedIn, GlobalApp.weekSession!!).execute()
                 e.get()
             } else {
@@ -382,7 +382,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
             val pairVal = weekCalPair.get(rId)
             val thisT = findViewById<EditText>(rId)
 
-            if (GlobalApp.c2) //if day
+            if (GlobalApp.calSw) //if day
                 pairVal.second(s.toString())
             else
                 pairVal.first(s.toString())
