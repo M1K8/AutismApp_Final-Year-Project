@@ -22,18 +22,6 @@ private var adapter: RecyclerView.Adapter<LoginActivity.Companion.RecyclerAdapte
 
 
 class LoginActivity : AppCompatActivity() {
-    private fun deleteRecursive(fileOrDirectory: File) {
-
-        if (fileOrDirectory.isDirectory) {
-            for (child in fileOrDirectory.listFiles()) {
-                deleteRecursive(child)
-            }
-        }
-
-        if (GlobalApp.isLogged())
-            GlobalApp.logOut()
-    }
-
 
     override fun onResume() {
         if (GlobalApp.vib) {
@@ -55,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //create our dialog to confirm is user wants to delete
         val alertCL = DialogInterface.OnClickListener { dialog, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
@@ -63,15 +52,18 @@ class LoginActivity : AppCompatActivity() {
                     val u = uProm.get()
 
                     if (u != null) {
-                        val userPath = "${this.getExternalFilesDir("")}/$delU/"
+                        val userPath = "${this.getExternalFilesDir("")}/$delU"
 
-                        deleteRecursive(File(userPath))
+                        //delete the folder and all its children
+                        File(userPath).deleteRecursively()
                     }
 
+                    //remove the user from the DB
                     val d = Drop(this).execute(delU)
 
                     d.get()
 
+                    //..and clean up, return to the home screen
                     GlobalApp.logOut()
                     Toast.makeText(this, "User $delU Deleted", Toast.LENGTH_SHORT).show()
                     setResult(Activity.RESULT_OK)
@@ -82,6 +74,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
+        //define the behaviour of all the buttons
 
         delButt.setOnClickListener {
             val delU = GlobalApp.getLogged()
@@ -119,9 +113,10 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
+
         val ch = CheckSize(this).execute()
-
-
+        //if there are users, draw them
         if (ch.get() > 0) {
             layoutManager = LinearLayoutManager(this)
             users_list_view.layoutManager = layoutManager
@@ -131,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
+    //series of helper classes to read / write from the DB
     companion object {
 
         class GetAllUsers(loginActivity: LoginActivity) : AsyncTask<Void, Int, List<User>>() {
@@ -181,9 +176,9 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-                viewHolder.user_image.setImageResource(R.drawable.test)
-                viewHolder.user_name.text = users!![i].uName
-                viewHolder.user_name.textSize = 48f
+                viewHolder.userImage.setImageResource(R.drawable.test)
+                viewHolder.userName.text = users!![i].uName
+                viewHolder.userName.textSize = 48f
             }
 
             override fun getItemCount(): Int {
@@ -198,8 +193,8 @@ class LoginActivity : AppCompatActivity() {
 
             inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-                var user_image: ImageView = itemView.findViewById(R.id.user_image)
-                var user_name: TextView = itemView.findViewById(R.id.user_name)
+                var userImage: ImageView = itemView.findViewById(R.id.user_image)
+                var userName: TextView = itemView.findViewById(R.id.user_name)
 
                 init {
                     itemView.setOnClickListener {

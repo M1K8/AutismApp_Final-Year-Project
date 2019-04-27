@@ -6,7 +6,7 @@ import android.content.Context
 
 
 @Entity
-class Calender()
+class Calender
 {
     var wakeUp: String = ""
     var wakeUp_pic_path: String? = null
@@ -28,33 +28,10 @@ class Calender()
 
     var bedTime: String = ""
     var bedTime_pic_path: String? = null
-
-    constructor(w : String, m : String, l : String, a : String, e : String, d : String, b : String) : this() {
-        wakeUp = w
-        wakeUp_pic_path = null
-
-        morning = m
-        morning_pic_path = null
-
-        lunchTime = l
-        lunchTime_pic_path = null
-
-        afternoon = a
-        afternoon_pic_path = null
-
-        evening= e
-        evening_pic_path = null
-
-        dinnerTime = d
-        dinnerTime_pic_path = null
-
-        bedTime = b
-        bedTime_pic_path = null
-    }
 }
 
 @Entity
-class Week() {
+class Week {
     var monday: String = ""
     var monday_pic_path: String? = null
 
@@ -76,28 +53,7 @@ class Week() {
     var sunday: String = ""
     var sunday_pic_path: String? = null
 
-    internal constructor(w: String, m: String, l: String, a: String, e: String, d: String, b: String) : this() {
-        monday = w
-        monday_pic_path = null
 
-        tuesday = m
-        tuesday_pic_path = null
-
-        wednesday = l
-        wednesday_pic_path = null
-
-        thursday = a
-        thursday_pic_path = null
-
-        friday= e
-        friday_pic_path = null
-
-        saturday = d
-        saturday_pic_path = null
-
-        sunday = b
-        sunday_pic_path = null
-    }
 }
 
 @Entity

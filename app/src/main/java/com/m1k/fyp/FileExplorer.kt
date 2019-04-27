@@ -48,7 +48,7 @@ class FileExplorer : AppCompatActivity() {
 
     }
 
-
+    //define our margin helper class
     inner class MarginItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(
             outRect: Rect, view: View,
@@ -82,6 +82,7 @@ class FileExplorer : AppCompatActivity() {
                 "/Public"
             }
 
+            //populate the view with images
             val fp = File(path).listFiles()
             if (fp != null) {
                 if (fp.isNotEmpty()) {
