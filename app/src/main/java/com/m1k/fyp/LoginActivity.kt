@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
         delButt.setOnClickListener {
             val delU = GlobalApp.getLogged()
-            val alertD = AlertDialog.Builder(this.applicationContext)
+            val alertD = AlertDialog.Builder(this)
 
             alertD.setMessage("Deleting Account $delU. This will also delete all saved images. Are you sure?").apply {
                 setPositiveButton("Yes", alertCL)
