@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         }
         super.onResume()
 
-        if (GlobalApp.isLogged())
+        if (!GlobalApp.isLogged())
             delButt.visibility = View.GONE
         else
             delButt.visibility = View.VISIBLE
