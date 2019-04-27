@@ -23,7 +23,7 @@ class SettingsActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.settings).setOnClickListener {
             if (GlobalApp.vib)
-                GlobalApp.vibrate(25, this.baseContext)
+                GlobalApp.vibrate(25, this)
         }
 
 
