@@ -142,7 +142,9 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="10" />
+                    android:layout_weight="10"
+                    android:alpha="0.75"
+                    android:background="#000000" />
 
 
             </TableRow>
@@ -154,6 +156,8 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#88eeaa"
                     android:layout_weight="1" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -180,6 +184,8 @@
 
                 <View
                     android:layout_width="0dp"
+                    android:alpha="0.7"
+                    android:background="#88eeaa"
                     android:layout_height="match_parent"
                     android:layout_weight="5.8" />
 
@@ -193,6 +199,8 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#a41671"
                     android:layout_weight="2" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -220,6 +228,8 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#a41671"
                     android:layout_weight="4.5" />
 
 
@@ -232,6 +242,8 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#2049da"
                     android:layout_weight="2.7" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -259,6 +271,8 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#2049da"
                     android:layout_weight="3.1" />
 
 
@@ -270,7 +284,9 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#880000"
                     android:layout_weight="3.55" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -290,7 +306,7 @@
                         android:layout_height="wrap_content"
                         android:background="#880000"
                         android:imeOptions="actionDone"
-                        android:textColor="#ffffff"
+                        android:textColor="#000000"
                         android:padding="2dp"
                         android:textSize="16sp" />
                 </android.support.v7.widget.CardView>
@@ -298,6 +314,8 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#880000"
                     android:layout_weight="2" />
 
             </TableRow>
@@ -308,7 +326,9 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#59a7d7"
                     android:layout_weight="4.65" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -335,6 +355,8 @@
 
                 <View
                     android:layout_width="0dp"
+                    android:alpha="0.7"
+                    android:background="#59a7d7"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
@@ -347,7 +369,9 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="#c35210"
                     android:layout_weight="5.8" />
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
