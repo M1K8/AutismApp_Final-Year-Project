@@ -27,7 +27,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
-
+        //set switches to reflect the current values
         val loggedIn = GlobalApp.getLogged()
 
         _draw_vib =  GlobalApp.draw_vib
@@ -45,6 +45,7 @@ class SettingsActivity : AppCompatActivity() {
         val c2_s = findViewById<Switch>(R.id.calWeeklySwitch)
         c2_s.isChecked = _c2
 
+        //when each switch is changed, first update the "cached" settings, then write to db
         dv_s.setOnCheckedChangeListener { _, isChecked ->
             _draw_vib = isChecked
 
