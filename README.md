@@ -4,38 +4,48 @@ Android app to enrich the lives of those living in a assisted living facility wi
 
 
 ## Files
+### /app/
 
-### CalendarActivity.kt
+#### CalendarActivity.kt
 Contains Calendar Applet implementation
 
-### CameraActivity.kt
+#### CameraActivity.kt
 Contains Camera Activity implementation
 
-### CameraPreview.kt
+#### CameraPreview.kt
 Contains Camera View implementation
 
-### DrawingActivity.kt
+#### DrawingActivity.kt
 Contains Drawing Activity and DrawView implementations
 
-### GlobalApp.kt
+#### GlobalApp.kt
 Contains Global Variable and Method Definitions
 
-### FileExplorer.kt
+#### FileExplorer.kt
 Contains File Explorer implementation
 
-### Home.kt
+#### Home.kt
 Contains Home screen implementation
 
-### PECSActivity.kt
+#### PECSActivity.kt
 Contains PECS applet implementation
 
-### LoginActivity.kt
+#### LoginActivity.kt
 Contains Login screen implementation
 
-### SettingsActivity.kt
+#### SettingsActivity.kt
 Contains Settings screen implementation
 
-### User.kt
+#### User.kt
 Contains database and User object definition and methods
 
+### /src/
 
+#### /drawable/
+Contains all images used in the application
+
+#### /layout/
+Contains all XML schemas used in the UI
+
+#### /values/
+Contains XML values used elsewhere
