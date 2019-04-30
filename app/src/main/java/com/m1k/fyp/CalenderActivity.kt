@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TableLayout
 import android.widget.TextView
+import com.m1k.fyp.GlobalApp.t2s
 import java.util.*
 
 class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
@@ -39,9 +40,6 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
     }
 
     //helper method to "speak" a given string
-    fun t2s(s: String) {
-        tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
-    }
 
 
     //create a data structure the allows for efficient storage of pairs of function ptrs, used in saving text box contents
@@ -132,7 +130,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.monday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -141,7 +139,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.tuesday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -151,7 +149,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.wednesday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -161,7 +159,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.thursday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -171,7 +169,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.friday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -181,7 +179,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.saturday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -191,7 +189,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.weekSession?.sunday)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -201,7 +199,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.wakeUp)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -211,7 +209,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.morning)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -221,7 +219,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.lunchTime)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -231,7 +229,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.afternoon)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -241,7 +239,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.dinnerTime)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -251,7 +249,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.evening)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -260,7 +258,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 text = Editable.Factory.getInstance().newEditable(GlobalApp.calSession?.bedTime)
                 maxWidth = Resources.getSystem().displayMetrics.widthPixels / 7
                 setOnLongClickListener {
-                    t2s(txt.text.toString())
+                    t2s(txt.text.toString(), tts)
                     true
                 }
             }
@@ -388,7 +386,7 @@ class CalenderActivity : AppCompatActivity(), TextToSpeech.OnInitListener  {
                 pairVal.first(s.toString())
 
             thisT.setOnLongClickListener {
-                t2s(thisT.text.toString())
+                t2s(thisT.text.toString(), tts)
                 true
             }
 

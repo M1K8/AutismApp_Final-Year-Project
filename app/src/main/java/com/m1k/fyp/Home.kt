@@ -12,6 +12,7 @@ import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.m1k.fyp.GlobalApp.t2s
 import kotlinx.android.synthetic.main.content_home.*
 import java.util.*
 
@@ -27,10 +28,8 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
-    //helper method for t2s
-    fun t2s(s: String) {
-        tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
-    }
+    //helper method for t2sSw
+
 
     private fun initVals() {
         //redraw based on login condition - show logout button only when a user is logged in
@@ -42,9 +41,9 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
             if (s != null) {
                 GlobalApp.draw_vib = s.draw_vibrate
                 GlobalApp.vib = s.general_vibrate
-                GlobalApp.t2s = s.txt2Speech
+                GlobalApp.t2sSw = s.txt2Speech
                 GlobalApp.calSw = s.calWeekly
-                GlobalApp.t2s = s.txt2Speech
+                GlobalApp.t2sSw = s.txt2Speech
             }
 
             findViewById<TextView>(R.id.welcomeText).text = "Welcome, $loggedIn !"
@@ -88,54 +87,54 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
 
-        //enable t2s on hold if enabled
-        if (GlobalApp.t2s) {
+        //enable t2sSw on hold if enabled
+        if (GlobalApp.t2sSw) {
             if (tts == null)
                 tts = TextToSpeech(this, this)
 
             loginButton.setOnLongClickListener {
-                t2s("Login")
+                t2s("Login", tts)
                 true
             }
 
             settingsButton.setOnLongClickListener {
-                t2s("Settings")
+                t2s("Settings", tts)
                 true
             }
 
             drawButton.setOnLongClickListener {
-                t2s("Draw")
+                t2s("Draw", tts)
                 true
             }
 
             camButton.setOnLongClickListener {
-                t2s("Camera")
+                t2s("Camera", tts)
                 true
             }
 
             pecsButton.setOnLongClickListener {
-                t2s("Pecs")
+                t2s("Pecs", tts)
                 true
             }
 
             calButton.setOnLongClickListener {
-                t2s("Calender")
+                t2s("Calender", tts)
                 true
             }
 
             strgButton.setOnLongClickListener {
-                t2s("Saved Pictures")
+                t2s("Saved Pictures", tts)
                 true
             }
 
             if (GlobalApp.isLogged()) {
                 welcomeText.setOnLongClickListener {
-                    t2s(welcomeText.text.toString())
+                    t2s(welcomeText.text.toString(), tts)
                     true
                 }
             }
         } else {
-            //disable t2s is disabled
+            //disable t2sSw is disabled
             loginButton.setOnLongClickListener { false }
             settingsButton.setOnLongClickListener { false }
             drawButton.setOnLongClickListener { false }
@@ -156,7 +155,7 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
 
-    //clean up t2s engine to prevent leak
+    //clean up t2sSw engine to prevent leak
     override fun onDestroy() {
         if (tts != null) {
             tts?.stop()

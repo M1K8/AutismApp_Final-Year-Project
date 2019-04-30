@@ -13,7 +13,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private var _draw_vib = false
     private var _vib = false
-    private var _t2s = false
+    private var _t2sSw = false
     private var _c2 = false
 
 
@@ -32,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
 
         _draw_vib =  GlobalApp.draw_vib
         _vib = GlobalApp.vib
-        _t2s = GlobalApp.t2s
+        _t2sSw = GlobalApp.t2sSw
         _c2 = GlobalApp.calSw
 
 
@@ -41,7 +41,7 @@ class SettingsActivity : AppCompatActivity() {
         val v_s = findViewById<Switch>(R.id.vibGenSwitch)
         v_s.isChecked = _vib
         val t2s_s = findViewById<Switch>(R.id.enableTxt2SpeechSwitch)
-        t2s_s.isChecked = _t2s
+        t2s_s.isChecked = _t2sSw
         val c2_s = findViewById<Switch>(R.id.calWeeklySwitch)
         c2_s.isChecked = _c2
 
@@ -66,11 +66,11 @@ class SettingsActivity : AppCompatActivity() {
 
 
         t2s_s.setOnCheckedChangeListener { _, isChecked ->
-            _t2s = isChecked
+            _t2sSw = isChecked
             if (loggedIn != null) {
-                WriteT2SToDB(loggedIn, _t2s).execute()
+                WriteT2SToDB(loggedIn, _t2sSw).execute()
             }
-            GlobalApp.t2s = isChecked
+            GlobalApp.t2sSw = isChecked
         }
 
 

@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.speech.tts.TextToSpeech
 
 object GlobalApp : Application() {
     //"cache" variables for DB
@@ -13,7 +14,7 @@ object GlobalApp : Application() {
     var draw_vib = false
     var vib = false
 
-    var t2s = false
+    var t2sSw = false
     var calSw = false
 
     fun getLogged(): String? {
@@ -32,7 +33,7 @@ object GlobalApp : Application() {
         loggedIn = null
         draw_vib = false
         vib = false
-        t2s = false
+        t2sSw = false
         calSw = false
         calSession = Calender()
         weekSession = Week()
@@ -45,6 +46,10 @@ object GlobalApp : Application() {
         v.vibrate(
             VibrationEffect.createWaveform(longArrayOf(0, 25), intArrayOf(0, i), -1)
         )
+    }
+
+    fun t2s(s: String, tts: TextToSpeech?) {
+        tts?.speak(s, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     // "cache" variables for Calendar
