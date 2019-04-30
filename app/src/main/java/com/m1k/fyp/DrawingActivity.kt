@@ -223,40 +223,56 @@ class DrawingActivity : AppCompatActivity() {
         //link all the colour buttons
         button1.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.YELLOW)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         button2.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.BLUE)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         button3.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.GREEN)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         button4.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.MAGENTA)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         button5.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.RED)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         button6.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.LTGRAY)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         button7.setOnClickListener {
             findViewById<DrawView>(R.id.drawing_view).setColour(Color.BLACK)
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         saveButt.setOnClickListener {
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(45, this)
             findViewById<DrawView>(R.id.drawing_view).saveCanvas()
         }
 

@@ -221,6 +221,8 @@ class PECSActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             init {
                 itemView.setOnClickListener {
                     val im = ImageView(itemView.context)
+                    if (GlobalApp.vib)
+                        GlobalApp.vibrate(30, this@PECSActivity)
                     im.setImageResource(pecs[adapterPosition])
                     AlertDialog.Builder(itemView.context).setView(im).create().show()
 

@@ -162,6 +162,8 @@ class CameraActivity : AppCompatActivity() {
         //capture the image by providing a callback object
         button_capture.setOnClickListener {
             if (mCamera != null) {
+                if (GlobalApp.vib)
+                    GlobalApp.vibrate(35, this)
                 mCamera!!.takePicture(null, null, PictureDoneCallback())
 
             }
@@ -171,6 +173,8 @@ class CameraActivity : AppCompatActivity() {
         //swap cameras, if possible
         button_swap.setOnClickListener {
             if (mCamera != null) {
+                if (GlobalApp.vib)
+                    GlobalApp.vibrate(35, this)
                 if (numOfCams > 1) {
 
                     mCamera?.stopPreview()
@@ -202,6 +206,8 @@ class CameraActivity : AppCompatActivity() {
 
         // autofocus the camera when the screen is tapped
         camera_preview.setOnClickListener {
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(15, this)
             mCamera?.autoFocus(null)
         }
     }

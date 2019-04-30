@@ -176,46 +176,63 @@ class Home : AppCompatActivity(), TextToSpeech.OnInitListener {
        loginButton.setOnClickListener {
            val intent = Intent(this, LoginActivity::class.java)
            val req = 0
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivityForResult(intent, req)
 
        }
 
        camButton.setOnClickListener {
            val intent = Intent(this, CameraActivity::class.java)
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivity(intent)
        }
 
        drawButton.setOnClickListener {
            val intent = Intent(this, DrawingActivity::class.java)
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivity(intent)
        }
 
 
        settingsButton.setOnClickListener {
            val intent = Intent(this, SettingsActivity::class.java)
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivity(intent)
        }
 
        calButton.setOnClickListener {
            val intent = Intent(this, CalenderActivity::class.java)
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivity(intent)
        }
 
        pecsButton.setOnClickListener {
            val intent = Intent(this, PECSActivity::class.java)
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivity(intent)
        }
 
        logOutButt.setOnClickListener {
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            this.findViewById<Button>(R.id.logOutButt).visibility = GONE
            Toast.makeText(this, "User ${GlobalApp.getLogged()} logged out", Toast.LENGTH_SHORT).show()
            GlobalApp.logOut()
+
 
            initVals()
        }
 
        strgButton.setOnClickListener {
            val intent = Intent(this, FileExplorer::class.java)
+           if (GlobalApp.vib)
+               GlobalApp.vibrate(30, this)
            startActivity(intent)
        }
 

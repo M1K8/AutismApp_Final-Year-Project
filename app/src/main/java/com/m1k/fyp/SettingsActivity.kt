@@ -48,6 +48,8 @@ class SettingsActivity : AppCompatActivity() {
         //when each switch is changed, first update the "cached" settings, then write to db
         dv_s.setOnCheckedChangeListener { _, isChecked ->
             _draw_vib = isChecked
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(30, this)
 
             if (loggedIn != null) {
                 WriteDVToDB(loggedIn,_draw_vib).execute()
@@ -58,6 +60,8 @@ class SettingsActivity : AppCompatActivity() {
 
         v_s.setOnCheckedChangeListener { _, isChecked ->
             _vib = isChecked
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(30, this)
             if (loggedIn != null) {
                 WriteGVToDB(loggedIn,_vib).execute()
             }
@@ -67,6 +71,8 @@ class SettingsActivity : AppCompatActivity() {
 
         t2s_s.setOnCheckedChangeListener { _, isChecked ->
             _t2sSw = isChecked
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(30, this)
             if (loggedIn != null) {
                 WriteT2SToDB(loggedIn, _t2sSw).execute()
             }
@@ -76,6 +82,8 @@ class SettingsActivity : AppCompatActivity() {
 
         c2_s.setOnCheckedChangeListener { _, isChecked ->
             _c2 = isChecked
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(30, this)
             if (loggedIn != null) {
                 WriteCalWeeklyToDB(loggedIn,_c2).execute()
             }

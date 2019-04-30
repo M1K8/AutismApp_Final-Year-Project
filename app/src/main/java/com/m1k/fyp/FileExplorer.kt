@@ -118,6 +118,8 @@ class FileExplorer : AppCompatActivity() {
             init {
                 //enlarge image on tap
                 itemView.setOnClickListener {
+                    if (GlobalApp.vib)
+                        GlobalApp.vibrate(30, this@FileExplorer)
                     val im = ImageView(itemView.context)
                     im.setImageBitmap(allImages[adapterPosition])
                     AlertDialog.Builder(itemView.context).setView(im).create().show()

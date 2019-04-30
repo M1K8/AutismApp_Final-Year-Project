@@ -2,6 +2,7 @@ package com.m1k.fyp
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.AsyncTask
 import android.os.Bundle
@@ -40,6 +41,8 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setCtx(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -78,6 +81,8 @@ class LoginActivity : AppCompatActivity() {
         //define the behaviour of all the buttons
 
         delButt.setOnClickListener {
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(85, this)
             val delU = GlobalApp.getLogged()
             val alertD = AlertDialog.Builder(this)
 
@@ -91,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         email_sign_in_button.setOnClickListener {
+            if (GlobalApp.vib)
+                GlobalApp.vibrate(25, this)
             if (new_user.text.toString().isBlank() || new_user.text.toString().isEmpty()) {
                 Toast.makeText(this, "Please enter a non empty name", Toast.LENGTH_LONG).show()
                 new_user.text.clear()
@@ -101,8 +108,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                 val c = CreateNewUser(this).execute(newUser)
-                if (c.get().compareTo(-1) == 0)
-                {
+                if (c.get().compareTo(-1) == 0) {
                     Toast.makeText(this, "Username exists, please enter a different username!", Toast.LENGTH_SHORT).show()
                     new_user.text.clear()
                 } else {
@@ -124,10 +130,18 @@ class LoginActivity : AppCompatActivity() {
             adapter = RecyclerAdapter(this)
             users_list_view.adapter = adapter
         }
+
     }
+
 
     //series of helper classes to read / write from the DB
     companion object {
+
+        private var ctx: Context? = null
+
+        fun setCtx(c: Context) {
+            ctx = c
+        }
 
         class GetAllUsers(loginActivity: LoginActivity) : AsyncTask<Void, Int, List<User>>() {
             private val db = UserDataBase.getDatabase(loginActivity).userDataDao()
@@ -170,6 +184,7 @@ class LoginActivity : AppCompatActivity() {
         class RecyclerAdapter(private val loginActivity: LoginActivity) :
             RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             var users: List<User>? = null
+
             init {
                 val e = GetAllUsers(loginActivity).execute()
                 users = e.get()
@@ -179,6 +194,7 @@ class LoginActivity : AppCompatActivity() {
                 viewHolder.userImage.setImageResource(R.drawable.test)
                 viewHolder.userName.text = users!![i].uName
                 viewHolder.userName.textSize = 48f
+
             }
 
             override fun getItemCount(): Int {
@@ -198,7 +214,8 @@ class LoginActivity : AppCompatActivity() {
 
                 init {
                     itemView.setOnClickListener {
-
+                        if (GlobalApp.vib)
+                            GlobalApp.vibrate(35, ctx!!)
                         val txt = this@RecyclerAdapter.users!![adapterPosition].uName
                         GlobalApp.setLogged(txt)
 
