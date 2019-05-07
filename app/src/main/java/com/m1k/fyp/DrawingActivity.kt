@@ -26,6 +26,7 @@ import java.util.*
 //from https://android.jlelse.eu/a-guide-to-drawing-in-android-631237ab6e28
 class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
+
     //initialise variables
     private var mPaint = Paint()
     private var mPath = Path()
@@ -89,7 +90,7 @@ class DrawView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         //vibrate if enabled in settings
         if (GlobalApp.draw_vib || GlobalApp.vib)
-            GlobalApp.vibrate(50, context)
+            GlobalApp.vibrate(30, context, true)
         mCurX = x
         mCurY = y
 
@@ -215,6 +216,7 @@ class DrawingActivity : AppCompatActivity() {
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawing)
+
 
         sheetBehavior = BottomSheetBehavior.from<LinearLayout>(draw_swipe_menu)
 

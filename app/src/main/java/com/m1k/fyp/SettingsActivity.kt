@@ -3,6 +3,7 @@ package com.m1k.fyp
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Switch
 
@@ -24,6 +25,19 @@ class SettingsActivity : AppCompatActivity() {
         findViewById<View>(R.id.settings).setOnClickListener {
             if (GlobalApp.vib)
                 GlobalApp.vibrate(25, this)
+        }
+
+        if (GlobalApp.vib) {
+            findViewById<View>(R.id.settTab).setOnTouchListener { v, event ->
+
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        GlobalApp.vibrate(20, v.context)
+                    }
+                }
+
+                super.onTouchEvent(event)
+            }
         }
 
 
@@ -66,6 +80,20 @@ class SettingsActivity : AppCompatActivity() {
                 WriteGVToDB(loggedIn,_vib).execute()
             }
             GlobalApp.vib = isChecked
+
+            if (GlobalApp.vib) {
+                findViewById<View>(R.id.settTab).setOnTouchListener { v, event ->
+
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            GlobalApp.vibrate(20, v.context)
+                        }
+                    }
+
+                    super.onTouchEvent(event)
+                }
+            }
+
         }
 
 

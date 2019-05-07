@@ -41,11 +41,13 @@ object GlobalApp : Application() {
 
     @SuppressLint("NewApi")
     //vibrate on touch
-    fun vibrate(i: Int = 1, context: Context) {
-        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        v.vibrate(
-            VibrationEffect.createWaveform(longArrayOf(0, 25), intArrayOf(0, i), -1)
-        )
+    fun vibrate(i: Int = 1, context: Context, overrD: Boolean = false) {
+        if (vib || overrD) {
+            val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            v.vibrate(
+                VibrationEffect.createWaveform(longArrayOf(0, 25), intArrayOf(0, i), -1)
+            )
+        }
     }
 
     fun t2s(s: String, tts: TextToSpeech?) {
