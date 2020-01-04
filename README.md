@@ -1,6 +1,8 @@
-# FYP
+# Final Year University Project - 2019
 
 Android app to enrich the lives of those living in a Residential Care Home, with an emphasis on autism. 
+
+Final Grade - 1st
 
 ## Build
 * Clone git repo
